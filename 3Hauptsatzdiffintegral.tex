@@ -1,0 +1,509 @@
+\chapter{Der Hauptsatz der Differential- und Integralrechnung \newline (Fundamentalsatz der Analysis)}
+
+\section{Der Hauptsatz}
+
+Sei $f(x)$ stetig über der Menge der reellen Zahlen. Betrachten Sie die Integralfunktion von $f$:
+\[
+  F(x) = \int_a^x f(t)\d t.
+\]
+Aus unserer bisherigen Arbeit wissen wir, dass $F(x)$ steigt wenn $f(x)$ positiv ist und dass $F(x)$ fällt wenn $f(x)$ negativ ist. Zudem können wir durch gründliche Betrachtung feststellen, dass $F(x)$ konkav ist, wenn die Ableitung $f'(x)$ positiv ist und dass $F(x)$ konvex ist wenn die Ableitung $f'(x)$ negativ ist. Wenn wir über das Gelernte aus der Differentialrechung nachdenken, nämlöich über die Beziehung der ersten und der zweiten Ableitung zu der Funktion, ist es nicht zu schwierig, sich vorzustellen, dass es auch zwischen $F'(x)$ und $f(x)$ eine Beziehung geben sollte. Dies ist eine gute Idee, betrachten Sie dazu den nächsten Satz:
+
+
+\begin{mainTheorem}[Hauptsatz der Differential- und Integralrechung  --- Version I]
+\index{Hauptsatz der Differential- und Integralrechung---Version 1}
+\label{thm:fundamental_theorem_I}\hfil
+
+\noindent Nehmen Sie an dass die Funktion $f(x)$ stetig über der Menge der reellen Zahlen ist und dass
+\[
+  F(x)=\int_a^x f(t)\d t.
+\]
+Dann gilt $F'(x)=f(x)$.
+\end{mainTheorem}
+
+\begin{proof}
+Mit Hilfe der Definition der Ableitung berechnen wir $F'(x)$:
+\begin{align*}
+F'(x) &= \lim_{h\to 0}\frac{F(x+h)-F(x)}{h}\\ 
+&=\lim_{h\to 0}\frac{1}{h}\left( \int_a^{x+h} f(t)\d t - \int_a^x f(t)\d t\right).
+\end{align*}
+Erinnern Sie sich daran, dass wenn wir die Integrationsgrenzen umkehren, das Vorzeichen des Integrals wechselt. Also:
+
+
+\[
+F'(x) =\lim_{h\to 0} \frac{1}{h}\left( \int_a^{x+h} f(t)\d t + \int_x^a f(t)\d t\right)
+\]
+Nun können wir die Integrale kombinieren, in dem wir diese an den gemeinsamen Punkten der Integrationsgrenzen ``verbinden'':
+\begin{equation}\label{ftc:eqn1}
+F'(x)=\lim_{h\to 0} \frac{1}{h}\int_x^{x+h} f(t)\d t.
+\end{equation}
+Da $f(x)$ stetig über dem Intervalll $[x,x+h]$ ist, und  $h$ gegen Null geht, 
+existiert ein $\epsilon$ gegen Null geht wie $h$ so dass
+\[
+f(x)-\epsilon < f(x^*) < f(x) + \epsilon \qquad \text{für alle }x^*\in[x,x+h],
+\]
+vgl. Abbildung~\ref{F:fun diagram}. Dies bedeutet dass
+\[
+(f(x) - \epsilon)h < \int_x^{x+h} f(t)\d t < (f(x) + \epsilon)h
+\]
+Teilen wir beide Seiten der Gleichung durch $h$ erhalten wir
+\[
+f(x) - \epsilon < \frac{1}{h}\int_x^{x+h} f(t)\d t < f(x) + \epsilon.
+\]
+Wir vergleichen dies mit der Gleichung~\ref{ftc:eqn1}, und bestimmen den Grenzwert für $h$ gegen Null (das bedeutet ja, dass auch $\epsilon$ gegen Null geht). Daraus folgt dass $F'(x) = f(x)$.
+\end{proof}
+
+\begin{marginfigure}
+\begin{tikzpicture}
+  \begin{axis}[
+      xmin=0, xmax=2,ymin=0,ymax=2.3,domain=0:2,
+      axis lines =center, xlabel=$x$, ylabel=$y$,
+      every axis y label/.style={at=(current axis.above origin),anchor=south},
+      every axis x label/.style={at=(current axis.right of origin),anchor=west},
+      axis on top,
+      xtick={.5,1.3,1.453,1.7}, 
+      ytickmin=4, ytickmax=1,
+      xticklabels={$a$,$x$,$x^*$,$x+h$}, 
+    ] 
+    \addplot [draw=none, fill=fill1,domain=1.3:1.7] {1+sin(deg(x))*sin(deg(x^2/1.3))} \closedcycle;
+    \addplot [textColor,dashed] plot coordinates {(1.453,0) (1.453,1.99)};
+    \addplot [penColor,very thick,smooth] {1+sin(deg(x))*sin(deg(x^2/1.3))};
+    
+    \node at (axis cs:.9,1.7) [penColor] {$f(x)$};
+  \end{axis}
+\end{tikzpicture}
+\caption{Hier sehen wir $f(x)$ zusammen mit $a$, $x$, $x^*$ und $x+h$.}
+\label{F:fun diagram}
+\end{marginfigure}
+
+Der Fundamentalsatz der Analysis sagt, dass eine Integralfunktion von $f(x)$ das Integral von $f(x)$ ist. Wir unterscheiden das bestimmte Integral
+\[
+  \int_a^b f(x)\d x
+\] 
+welches einen bestimmten Wert ergibt --- die Fläche zwischen $f(x)$ und der $x$-Achse, und das unbestimmte Integral
+\[
+  \int f(x)\d x
+\]
+wobei $f(x)$ die Ableitung von $F(x)$ (Stammfunktion) darstellt ($F'(x) = f(x)$;
+\[
+  \int f(x)\d x = F(x)+C.
+\]
+die Konstante $C$ zeigt, dass es eigentlich immer eine unendliche Anzahl Stammfunktionen gibt.
+
+Es gibt noch eine weitere Form des Fundamentalsatzes:
+
+\marginnote{
+Die Notation
+\[
+F(x) \Biggr|_a^b
+\]
+dbedeutetm dass wir die Funktion $F(x)$ am Punkt $b$ auswerten und von dem Resultat die Auswertung von $F(x)$ am Punkt $a$ subtrahieren, also:
+\[
+F(x) \Biggr|_a^b = F(b)-F(a).
+\]  
+}
+\begin{mainTheorem}[Hauptsatz der Differential- und Integralrechung  --- Version II]\index{Hauptsatz der Differential- und Integralrechung---Version 2}
+\label{thm:fundamental_theorem_II}\hfil
+
+\noindent Die Funktion $f(x)$ sei stetig im Intervalll $[a,b]$. Ist $F(x)$
+eine Stammfunktion von $f(x)$, dann gilt
+\[
+  \left.\int_a^b f(x)\d x = F(x) \right|_a^b = F(b)-F(a).
+\]
+\end{mainTheorem}
+
+\begin{proof}
+Vom Hauptsatz I~\ref{thm:fundamental_theorem_I} wissen wir, dass
+\[
+  G(x)=\int_a^x f(t)\d t
+\]
+eine Stammfunktion von $f(x)$ ist, und dass somit jede Stammfunktion
+$F(x)$ von $f(x)$ eine der Form  $F(x)=G(x)+k$ ist. Dann ist 
+\begin{align*}
+  F(b)-F(a) &=G(b)+k-(G(a)+k) 
+  &= G(b)-G(a) \\
+  &=\int_a^b f(t)\d t-\int_a^a f(t)\d t.
+\end{align*}
+Es ist nicht schwierig zu sehen, dass $\int_a^a f(t)\d t=0$, dies bedeutet dass
+\[
+  F(b)-F(a)=\int_a^b f(t)\d t,
+\]
+was exakt dem Fundamentalsatz~\ref{thm:fundamental_theorem_II} entspricht.
+\end{proof}
+
+Die beiden Versionen des Fundamentalsatzes sind sehr eng miteinader verwandt. Ês ist eigentlich die gleiche Aussage, etwas anders verpackt. Deshalb spricht man oft auch nur von einem ``Hauptsatz der Differential- und Integralrechung''. 
+
+Betrachten wir nun ein Beispiel zum Fundamentalsatz:
+
+\begin{example}
+Berechnen Sie
+\[
+\int_1^2\left(x^9 + \frac{1}{x}\right) \d x
+\]
+\end{example}
+
+\begin{solution}
+Wir beginnen in dem wir eine Stammfunktion zu 
+\[
+x^9 + \frac{1}{x}.
+\]
+suchen. Die korrekte Wahl ist $\frac{x^{10}}{10} + \ln(x)$, wie man durch Ableiten überprüfen kann. Also:
+\begin{align*}
+\int_1^2\left(x^9 + \frac{1}{x}\right) \d x &= \left(\frac{x^{10}}{10} + \ln(x)\right)\Bigg|_1^2 \\
+&= \frac{2^{10}}{10} \ln(2) - \frac{1}{10}.
+\end{align*}
+\end{solution}
+
+Wenn wir das bestimmte Integral berechnen, suchen wir zuerst die Stammfunktion und setzen danach die Integrationsgrenzen ein, dazu verwenden wir den senkrechten Strich. Dies ist das übliche Vorgehen. Wir haben die entsprechende Notation bereits angetroffen, betrachten diese hier nochmals zur Wiederholung: Die Lösung einer typischen Aufgabe in dieser Notation würde dann so aussehen
+\[
+  \left.\int_1^2 x^2\d x={x^3\over 3}\right|_1^2 = 
+  {2^3\over3}-{1^3\over3}={7\over3}.
+\]
+Nun können Sie mit den bisher gelernten einfache Problemstellungen integrieren, die Suche nach der Stammfunktion bleibt aber schwierig. Während wir nur ein paar Ableitungsregeln benötigen um die Ableitung jeder beliebigen Funktion zu finden, haben wir beim Integrieren nicht so viel Glück. Es gibt ein paar Techniken, die ziemlich nützlich sind, wir werden aber nie ein ``Rezept für alles'' haben.
+
+
+
+
+\subsection*{Beispiel aus der Physik (Kinematik)}
+
+Wir betrachten nun noch ein Beispiel aus der Physik, das Sie in ähnlicher Form im Physikunterricht bereits gelöst haben (damals natürlich noch ohne die Integralrechnung):
+
+\begin{example}
+Die Geschwindigkeit (in Meter pro Sekunde) eines Balles der aus einer Höhe von 1 Meter geworfen wird, sei gegeben durch:
+\[
+v(t) = -9.8t + 6.
+\]
+Bestimmen Sie die Höhe des Balles nach $1$ Sekunde!
+\end{example}
+
+\begin{solution}
+Da die Ableitung des Ortes (Steigung im $s-t$-Diagramm) die Geschwindigkeit ist und wir die Höhe (Ort) nach $1$ Sekunde wissen möchten, müssen wir folgendes Integral (das Umgekehrte der Ableitung) berechnen:
+
+\begin{align*}
+\int_0^1 -9.8t + 6 \d t &= (-4.9t^2 + 6t)\Bigg|_0^1\\
+&= -4.9 + 6 - 0\\
+&= 1.1.
+\end{align*}
+Da der Ball aus einer Starthöhe von $1$ Meter geworfen wurde, ergibt sich eine Höhe von $2.1$ Meter.
+\end{solution}
+
+Wenn sie an die Riemann-Summen zurückdenken, merken Sie, dass wir hier eigentlich die Geschwindigkeit des Balles in kleine Streifchen zerlegen. Diese haben eine Breite in der Dimension Zeit (von $0$ bis $1$ Sekunde). Die Fläche der Streifchen ist also Geschwindigkeit mal Zeit, was eine Strecke ergibt ($\Delta v \cdot \Delta t = \Delta s$). Die Geschwindigkeit ändert zu jedem Zeitpunkt, wenn wir nun die Streifchen unendlich dünn machen, können wir die Fläche exakt bestimmen, dies machen wir mit dem bestimmten Integral.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{exercises}
+\noindent Etwas Repetition: \newline Berechnen Sie die folgenden Integrale:
+
+\twocol
+
+\begin{exercise} $\int_1^4 t^2+3t\d t$
+\begin{answer} $87/2$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_0^\pi \sin t\d t$
+\begin{answer} $2$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_1^{10} {1\over x}\d x$
+\begin{answer} $\ln(10)$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_0^5 e^x\d x$
+\begin{answer} $e^5-1$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_0^3 x^3\d x$
+\begin{answer} $3^4/4$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_1^2 x^5\d x$
+\begin{answer} $2^6/6 -1/6$
+\end{answer}\end{exercise}
+
+
+\begin{exercise} $\int_1^9 8\sqrt{x}\d x$
+\begin{answer} $416/3$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_1^4 \frac{4}{\sqrt{x}}\d x$
+\begin{answer} $8$
+\end{answer}\end{exercise}
+
+
+\begin{exercise} $\int_{-2}^{-1}7x^{-1}\d x$
+\begin{answer} $-7\ln(2)$
+\end{answer}\end{exercise}
+
+
+\begin{exercise} $\int_{-2}^3 (5x+1)^2\d x$
+\begin{answer} $965/3$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_{-7}^4(x-6)^2 \d x$
+\begin{answer} $2189/3$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_3^{27}x^{3/2}\d x$
+\begin{answer} $4356 \sqrt{3}/5$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_4^9\frac{2}{x\sqrt x}\d x$
+\begin{answer} $2/3$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_{-4}^1|2x-4|\d x$
+\begin{answer} $35$
+\end{answer}\end{exercise}
+
+\endtwocol
+
+\begin{exercise} Finden Sie die Ableitung von $F(x)=\int_1^x \left(t^2-3t\right)\d t$
+\begin{answer} $x^2-3x$
+\end{answer}\end{exercise}
+
+\begin{exercise} Finden Sie die Ableitung von $F(x)=\int_1^{x^2} \left(t^2-3t\right)\d t$
+\begin{answer} $2x(x^4-3x^2)$
+\end{answer}\end{exercise}
+
+\begin{exercise} Finden Sie die Ableitung von $F(x)=\int_1^x e^{\left(t^2\right)}\d t$
+\begin{answer} $e^{\left(x^2\right)}$
+\end{answer}\end{exercise}
+
+\begin{exercise} Finden Sie die Ableitung von $F(x)=\int_1^{x^2} e^{\left(t^2\right)}\d t$
+\begin{answer} $2xe^{\left(x^4\right)}$
+\end{answer}\end{exercise}
+
+
+\begin{exercise} Finden Sie die Ableitung von $F(x)=\int_1^x \tan(t^2)\d t$
+\begin{answer} $\tan(x^2)$
+\end{answer}\end{exercise}
+
+\begin{exercise} Finden Sie die Ableitung von $F(x)=\int_1^{x^2} \tan(t^2)\d t$
+\begin{answer} $2x\tan(x^4)$
+\end{answer}\end{exercise}
+
+\end{exercises}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Flächen zwischen Kurven}
+
+Wir haben bereits gesehen, wie wir mit der Integration bestimmte Flächen zwischen Kurven und der $x$-Achse berechnen können. Mit einer kleinen Änderung können wir jedoch auch Flächen zwischen Kurven berechnen. Betrachten wir dazu ein Beispiel:
+
+\begin{example} Finden Sie die Fläche unter $f(x)= -x^2+4x+3$ und über
+$g(x)=-x^3+7x^2-10x+5$ über dem Intervall $1\le x\le2$. 
+\end{example}
+
+\begin{marginfigure}
+\begin{tikzpicture}
+	\begin{axis}[
+            domain=0:3, ymax=14,xmax=3,ymin=0, xmin=0,
+            axis lines =left, xlabel=$x$, ylabel=$y$,
+            every axis y label/.style={at=(current axis.above origin),anchor=south},
+            every axis x label/.style={at=(current axis.right of origin),anchor=west},
+            axis on top,
+          ]
+          \addplot [draw=none,fill=fillp,domain=1:2] {-x^2+4*x+3} \closedcycle;
+          \addplot [draw=none,fill=background,domain=1:2] {-x^3 + 7*x^2-10*x+5} \closedcycle;
+          \addplot [draw=penColor,very thick] {-x^2+4*x+3};
+          \addplot [draw=penColor2,very thick] {-x^3 + 7*x^2-10*x+5};
+          \node at (axis cs:1,6.7) [penColor] {$f(x)$};
+          \node at (axis cs:2,4) [penColor2] {$g(x)$};
+        \end{axis}
+\end{tikzpicture}
+\caption{Die Fläche zwischen $f(x)= -x^2+4x+3$ und
+$g(x)=-x^3+7x^2-10x+5$ über dem Intervall $1\le x\le2$. }
+\label{fig:area between curves}
+\end{marginfigure}
+
+\begin{solution}
+In Abbildung~\ref{fig:area between curves}sehen Sie die gesuchte Fläche zwischen den beiden Kurven.
+
+Aus der Abbildung wird klar, dass die gesuchte Fläche der Fläche unter $f(x)$ minus der Fläche unter $g(x)$ entspricht, also
+\[
+\int_1^2 f(x)\d x-\int_1^2 g(x)\d x = \int_1^2 \left(f(x)-g(x)\right)\d x.
+\]
+Es spielt keine Rolle, ob wir die Variante links dem Gleichzeichen oder diese rechts dem Gleichzeichen berechnen. In diesem Falle ist wohl die rechte Seite der Gleichung etwas einfacher:
+
+\begin{align*}
+  \int_1^2 f(x)-g(x)\d x&=\int_1^2 -x^2+4x+3-(-x^3+7x^2-10x+5)\d x \\
+  &=\int_1^2 x^3-8x^2+14x-2\d x \\
+  &=\left.{x^4\over4}-{8x^3\over3}+7x^2-2x\right|_1^2 \\
+  &={16\over4}-{64\over3}+28-4-({1\over4}-{8\over3}+7-2) \\
+  &=23-{56\over3}-{1\over4}={49\over12}.
+\end{align*}
+\end{solution}
+
+In diesem ersten Beispiel war die eine Kurve immer höher als die andere. Dies ist jedoch nicht immer der Fall!
+
+
+\begin{example} Finden Sie die Fläche zwischen $f(x)= -x^2+4x$ und
+$g(x)=x^2-6x+5$ über dem Intervall $0\le x\le 1$.
+\end{example}
+
+\begin{marginfigure}
+\begin{tikzpicture}
+	\begin{axis}[
+            domain=-1:2, ymax=6,xmax=1.5,ymin=0, xmin=-.5,
+            axis lines =center, xlabel=$x$, ylabel=$y$,
+            every axis y label/.style={at=(current axis.above origin),anchor=south},
+            every axis x label/.style={at=(current axis.right of origin),anchor=west},
+            axis on top,
+          ]
+          \addplot [draw=none,fill=fillp,domain=0:0.56] {x^2-6*x+5} \closedcycle;
+          \addplot [draw=none,fill=background,domain=0:0.56] {-x^2+4*x} \closedcycle;
+          \addplot [draw=none,fill=fillp,domain=0.56:1] {-x^2+4*x} \closedcycle;
+          \addplot [draw=none,fill=background,domain=0.56:1] {x^2-6*x+5} \closedcycle;
+          \addplot [draw=penColor,very thick] {-x^2+4*x};
+          \addplot [draw=penColor2,very thick] {x^2 - 6*x+5};
+          \node at (axis cs:1.25,3.1) [penColor] {$f(x)$};
+          \node at (axis cs:.25,4.3) [penColor2] {$g(x)$};
+        \end{axis}
+\end{tikzpicture}
+\caption{Die Fläche zwischen $f(x)= -x^2+4x$ und
+$g(x)=x^2-6x+5$ über dem Intervall $0\le x\le 1$.}
+\label{fig:curves cross}
+\end{marginfigure}
+
+
+\begin{solution}
+Die Kurven sind in Abbildung~\ref{fig:curves cross} zu sehen. Generell sollten wir den Begriff ``Fläche'' im gewohnten Sinn interpretieren, also jeweils als positive Grösse. Da sich die beiden Kurven schneiden, müssen wir zwei Flächen berechnen und diese addieren. Zunächst finden wir den Schnittpunkt der Kurven in dem wir die beiden Funktionen gleichsetzen:
+
+\begin{align*}
+  -x^2+4x&=x^2-6x+5 \\
+  0&=2x^2-10x+5 \\
+  x&={10\pm\sqrt{100-40}\over4}={5\pm\sqrt{15}\over2}.
+\end{align*}
+Der gesuchte Schnittpunkt ist $x=a=(5-\sqrt{15})/2$ (der andere liegt ausserhalb des Intervalles). Die gesamte Fläche ergibt sich nun aus:
+\begin{align*}
+  \int_0^a x^2-6x+5-(-x^2+4x)\d x&+\int_a^1 -x^2+4x-(x^2-6x+5)\d x \\
+  &=\int_0^a 2x^2-10x+5\d x+\int_a^1 -2x^2+10x-5\d x \\
+  &=\left.{2x^3\over3}-5x^2+5x\right|_0^a + 
+    \left.-{2x^3\over3}+5x^2-5x\right|_a^1 \\
+  &=-{52\over3}+5\sqrt{15},
+\end{align*}
+(nach Vereinfachung).
+\end{solution}
+
+In den beiden bisherigen Beispielen habe ich Ihnen die Integrationsgrenzen mit den beiden $x$-Werten $0$ und $1$ angegeben. Andere Probleme sind jedoch dann nicht mehr so einfach!
+
+\begin{example} Finden Sie die Fläche zwischen $f(x)= -x^2+4x$ und
+$g(x)=x^2-6x+5$.
+\end{example}
+\newpage
+\begin{marginfigure}
+\begin{tikzpicture}
+	\begin{axis}[
+            domain=0:5, ymax=5,xmax=5,ymin=-5, xmin=0,
+            axis lines =center, xlabel=$x$, ylabel=$y$,
+            every axis y label/.style={at=(current axis.above origin),anchor=south},
+            every axis x label/.style={at=(current axis.right of origin),anchor=west},
+            axis on top,
+          ]
+          \addplot [draw=none,fill=fillp,domain=.56:4] {-x^2+4*x} \closedcycle;
+          \addplot [draw=none,fill=fillp,domain=.56:4.44] {x^2-6*x+5} \closedcycle;
+          \addplot [draw=none,fill=background,domain=4:5] {-x^2+4*x} \closedcycle;
+          \addplot [draw=none,fill=background,domain=0:1] {x^2-6*x+5} \closedcycle;
+          %\addplot [draw=none,fill=fillp,domain=.56:4] {-x^2+4*x} \closedcycle;       
+          \addplot [draw=penColor,very thick,smooth] {-x^2+4*x};
+          \addplot [draw=penColor2,very thick,smooth] {x^2-6*x+5};
+          
+          \node at (axis cs:2,4.4) [penColor] {$f(x)$};
+          \node at (axis cs:1,-1) [penColor2] {$g(x)$};
+        \end{axis}
+\end{tikzpicture}
+\caption{Die Fläche zwischen $f(x)= -x^2+4x$ und $g(x)=x^2-6x+5$.}
+\label{fig:area bounded by curves}
+\end{marginfigure}
+
+\begin{solution}
+Die Kurven sind in Abbildung~\ref{fig:area bounded by curves} zu sehen. Hier haben wir nun kein spezifisches Intervall, also muss es irgend eine ``natürliche'' Region für die Fläche geben. Da beide Kurven Parabeln sind (beides Polynome $2$-ter Ordnung) ist die einzige sinnvolle Interpretation, dass die Flächezwischen den beiden Schnittpunkten gesucht ist. Diese Schnittpunkte haben wir ja bereits im letzten Beispiel gefunden (es sind die Gleichen Funktionen).
+$${5\pm\sqrt{15}\over2}.$$
+Setzen wir also $a=(5-\sqrt{15})/2$ und $b=(5+\sqrt{15})/2$,
+dann ist die gesamte Fläche: 
+\begin{align*}
+  \int_a^b -x^2+4x-(x^2-6x+5)\d x
+  &=\int_a^b -2x^2+10x-5\d x \\
+  &=\left.-{2x^3\over3}+5x^2-5x\right|_a^b \\
+  &=5\sqrt{15},
+\end{align*}
+(nach Vereinfachung).
+\end{solution}
+
+
+
+\begin{exercises}
+
+\noindent Finden Sie die Fläche die durch die Kurven eingeschlossen wird:
+
+\begin{exercise} $y=x^4-x^2$ und $y=x^2$ (der Teil rechts von der $y$-Achse)
+\begin{answer} $8\sqrt2/15$
+\end{answer}\end{exercise}
+
+\begin{exercise} $x=y^3$ und $x=y^2$
+\begin{answer} $1/12$
+\end{answer}\end{exercise}
+
+\begin{exercise} $x=1-y^2$ und $y=-x-1$
+\begin{answer} $9/2$
+\end{answer}\end{exercise}
+
+\begin{exercise} $x=3y-y^2$ und $x+y=3$
+\begin{answer} $4/3$
+\end{answer}\end{exercise}
+
+\begin{exercise} $y=\cos(\pi x/2)$ und $y=1- x^2$ (im ersten Quadranten)
+\begin{answer} $2/3-2/\pi$
+\end{answer}\end{exercise}
+
+\begin{exercise} $y=\sin(\pi x/3)$ und $y=x$ (im ersten Quadranten)
+\begin{answer} $3/\pi - 3\sqrt3/(2\pi)-1/8$
+\end{answer}\end{exercise}
+
+\begin{exercise} $y=\sqrt{x}$ und $y=x^2$
+\begin{answer} $1/3$
+\end{answer}\end{exercise}
+
+\begin{exercise} $y=\sqrt x$ und $y=\sqrt{x+1}$, $0\le x\le 4$
+\begin{answer} $10\sqrt{5}/3-6$
+\end{answer}\end{exercise}
+
+\begin{exercise} $x=0$ und $x=25-y^2$
+\begin{answer} $500/3$
+\end{answer}\end{exercise}
+
+\begin{exercise} $y=\sin x\cos x$ und $y=\sin x$, $0\le x\le \pi$
+\begin{answer} $2$
+\end{answer}\end{exercise}
+
+\begin{exercise} $y=x^{3/2}$ und $y=x^{2/3}$
+\begin{answer} $1/5$
+\end{answer}\end{exercise}
+
+\begin{exercise} $y=x^2-2x$ und $y=x-2$
+\begin{answer} $1/6$
+\end{answer}\end{exercise}
+
+Gehen Sie nun zu den ``ÜBUNGEN ZUR INTEGRALRECHNUNG'' ab Aufgabe 14 weiter!
+\end{exercises}
+

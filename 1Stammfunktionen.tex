@@ -1,0 +1,555 @@
+\chapter{Stammfunktionen}
+
+\section{Grundlegende Stammfunktionen}
+
+Die Berechnung von Ableitungen ist nicht allzu schwierig. Sie sollten nun ja in der Lage sein, die Ableitung für fast alle Funktionen zu bestimmen. Das Umgekehrte jedoch, also die Ableitung rückgängig zu machen, stellt sich als sehr viel schwieriger heraus. Dieser Prozess des Umkehrens der Ableitung nennen wir die Suche nach der \textit{Stammfunktion}.
+
+
+\begin{definition}\index{Stammfunktion}
+Eine Funktion $F(x)$ wird \textbf{Stammfunktion} von $f(x)$ über ein Intervall genannt, wenn 
+\[
+F'(x) = f(x)
+\]
+für alle $x$ in diesem Intervall gilt.
+\end{definition}
+
+Wir benutzen eine spezielle Notation für die Stammfunktion:
+
+\begin{definition}\index{Stammfunktion!Notation}\index{unbestimmtes Integral}
+Die Stammfunktion wird bezeichnet durch
+\[
+\int f(x) \d x = F(x)+C,
+\]
+wobei $dx$ $x$ als die Variable identifiziert und $C$ eine Konstante ist. Die Konstante zeigt, dass es viele mögliche Stammfunktionen gibt, alle unterscheiden sich durch die Addition einer Konstanten. Dies wird oft \textbf{unbestimmtes Integral} genannt.
+\end{definition}
+
+Hier sind die grundlegenden Stammfunktionen. Jedes dieser Beispiele kommt direkt aus unserem Wissen zur Differentialrechnung.
+
+\begin{fullwidth}
+\begin{mainTheorem}[Grundlegende Stammfunktionen]\label{theorem:basicAnti} \hfil
+\begin{multicols}{3}
+\begin{itemize}
+\item $\int k \d x= kx+C$.
+\item $\int x^n \d x= \frac{x^{n+1}}{n+1}+C\qquad(n\ne-1)$.
+\item $\int e^x \d x= e^x + C$.
+\item $\int a^x \d x= \frac{a^x}{\ln(a)}+C$.
+\item $\int \frac{1}{x} \d x= \ln|x|+C$.
+\item $\int \cos(x) \d x = \sin(x) + C$.
+\item $\int \sin(x) \d x = -\cos(x) + C$.  
+\item $\int \tan(x) \d x = -\ln|\cos(x)| + C$.  
+\item $\int \sec^2(x) \d x = \tan(x) + C$. 
+\item $\int \csc^2(x) \d x = -\cot(x) + C$.
+\item $\int \sec(x)\tan(x) \d x = \sec(x) + C$.
+\item $\int \csc(x)\cot(x) \d x = -\csc(x) + C$.
+\item $\int \frac{1}{x^2+1}\d x = \arctan(x) + C$.
+\item $\int \frac{1}{\sqrt{1-x^2}}\d x= \arcsin(x)+C$.
+\end{itemize}
+\end{multicols}
+\end{mainTheorem}
+\end{fullwidth}
+Es scheint, als könnte man jetzt nur diese Stammfunktionen auswendiglernen und das Integrieren würde so einfach wie das Ableiten. Dies ist jedoch nicht der Fall. Probleme entstehen, wenn Funktionen kombiniert werden. Beim Ableiten hatten wir die Produktregel und die Kettenregel solche Fälle. Beim Integrieren sind die analogen Regeln wesentlich schwieriger. Aber es ist nicht alles verloren! Zur Summenregel aus den Ableitungen (Skript Differentialrechnung, Satz 2.2.6 auf Seite 37) heben wir die folgende analoge Regel fürs Integrieren:
+
+
+\begin{mainTheorem}[Summenregel für Stammfunktionen]\label{theorem:SRA}
+Gegeben seien zwei Funktionen $f(x)$ und $g(x)$ wobei $k$ eine Konstante sei:
+\begin{itemize}
+\item $\int k f(x) \d x= kF(x) + C$.
+\item $\int \left(f(x) + g(x)\right) \d x = F(x) + G(x) + C$.
+\end{itemize}
+\end{mainTheorem}
+
+Also, verwenden wir nun einmal diese Regel und unser bisheriges Wissen zu den Ableitungen und versuchen damit zu Arbeiten:
+
+\begin{example}
+Berechnen Sie
+\[
+\int 3 x^7 \d x.
+\]
+\end{example}
+
+\begin{solution}
+Durch Satz~\ref{theorem:basicAnti} und Satz~\ref{theorem:SRA}, sehen wir dass
+\begin{align*}
+\int 3 x^7 \d x &= 3 \int x^7 \d x\\
+&= 3 \cdot \frac{x^8}{8}+C.
+\end{align*}
+\end{solution}
+
+Die Summenregel für Stammfunktionen, Satz~\ref{theorem:SRA}, erlaubt uns Term für Term zu integrieren. Betrachten wir dazu ein Beispiel:
+
+\begin{example}
+Berechnen Sie
+\[
+\int \left(x^4 + 5x^2 - \cos(x)\right) \d x.
+\]
+\end{example}
+
+\begin{solution} 
+Wir beginnen, indem wir das Problem mit Hilfe der Summenregel für Stammfunktionen, Satz~\ref{theorem:SRA}, vereinfachen.
+\[
+\int \left(x^4 + 5x^2 - \cos(x)\right) \d x = \int x^4 \d x + 5\int x^2 \d x - \int \cos(x) \d x.
+\]
+Nun können wir Term für Term integrieren:
+\[
+\int \left(x^4 + 5x^2 - \cos(x)\right) \d x = \frac{x^5}{5} + \frac{5x^3}{3}  - \sin(x)+C.
+\]
+\end{solution}
+
+
+\begin{warning}
+Während die Summenregel für Stammfunktionen uns erlaubt Term für Term zu integrieren, können wir aber nicht Faktor für Faktor integrieren! Das heisst im Allgemeinen:
+
+\[
+\int f(x)g(x) \d x \ne \int f(x) \d x\cdot \int g(x) \d x.
+\]
+\end{warning}
+
+
+
+
+
+
+
+
+\subsection*{Tipps um Stammfunktionen zu erraten}
+
+Unglücklicherweise kann ich Ihnen nicht sagen, wie Sie jede Stammfunktion berechnen können. Betrachten Sie die Stammfunktionen wie ein Mathematiker als eine Art \textit{Puzzle}. Später werden wir eine Handvoll Techniken erlernen um Stammfunktionen zu berechnen, der einfachste und beste Weg besteht jedoch immer noch aus Raten und Überprüfen.
+
+
+
+\begin{guessingAntiderivatives}\hfil
+\begin{enumerate}
+\item Machen Sie eine Vermutung zu einer Stammfunktion
+\item Leiten Sie Ihre vermutete Stammfunktion ab
+\item Beachten Sie, wie sich diese Ableitung von der Funktion deren Stammfunktion Sie finden wollen unterescheidet
+\item Ändern Sie ihre erste Vermutung durch \textbf{Multiplikation} von Konstanten
+  oder durch \textbf{Addition} neuer Funktionen.
+\end{enumerate}
+\end{guessingAntiderivatives}
+
+\begin{template}\label{template:powerchain}
+Wenn das undefinierte Integral \emph{irgendwie} wie folgt ausschaut:
+\[
+\int \mathrm{Zeugs}' \cdot (\mathrm{Zeugs})^n \d x \qquad\text{dann vermuten Sie} \qquad \mathrm{Zeugs}^{n+1}
+\]
+wobei $n\ne -1$.
+\end{template}
+
+\begin{example} Berechnen Sie
+\[
+\int \frac{x^3}{\sqrt{x^4 -6}} \d x.
+\]
+\end{example}
+
+\begin{solution}
+Starten Sie indem Sie das undefinierte Integral umschreiben zu
+\[
+\int x^3\left(x^4 -6\right)^{-1/2} \d x.
+\]
+Nun vermuten wir
+\[
+\int x^3\left(x^4 -6\right)^{-1/2} \d x \approx \left(x^4 -6\right)^{1/2}.
+\]
+Wir leiten unsere Vermutung ab, um zu sehen ob sie stimmt:
+\[
+\ddx  \left(x^4 -6\right)^{1/2} = (4/2)x^3\left(x^4 -6\right)^{-1/2}.
+\]
+Es fehlt noch ein Faktor $2/4$, also multiplizieren wir unsere Vermutung mit dieser Konstanten um die Lösung zu erhalten:
+\[
+\int \frac{x^3}{\sqrt{x^4 -6}} \d x = (2/4)\left(x^4 -6\right)^{1/2}+C.
+\]
+\end{solution}
+
+
+\begin{template}\label{template:echain}
+Wenn das undefinierte Integral \emph{irgendwie} wie folgt ausschaut:
+\[
+\int \mathrm{Irgendwas}\cdot e^{\mathrm{Zeugs}} \d x \qquad\text{dann vermuten Sie}\qquad e^{\mathrm{Zeugs}} \text{ \textbf{oder} }\mathrm{Irgendwas}
+\cdot e^{\mathrm{Zeugs}}.
+\]
+\end{template}
+
+
+\begin{example}
+Berechnen Sie
+\[
+\int xe^{x} \d x.
+\]
+\end{example}
+
+
+\begin{solution}
+Wir versuchen nun die Stammfunktion zu erraten. Wir starten mit der Vermutung
+\[
+\int xe^x \d x \approx xe^x.
+\]
+Wir leiten unsere Vermutung ab, um zu sehen ob sie stimmt:
+\[
+\ddx xe^x = e^x + xe^x.
+\]
+Aha! Wir müssen also nur $e^x$ von unserer Vermutung subtrahieren:
+\[
+\int xe^x \d x =xe^x - e^x + C.
+\]
+\end{solution}
+
+
+
+
+
+\begin{template}\label{template:lnchain}
+Wenn das undefinierte Integral \emph{irgendwie} wie folgt ausschaut:
+\[
+\int \frac{\mathrm{Zeugs}'}{\mathrm{Zeugs}}\d x \qquad\text{dann vermuten Sie}\qquad\ln(\mathrm{Zeugs}).
+\]
+\end{template}
+
+\begin{example}
+Berechnen Sie
+\[
+\int \frac{2x^2}{7x^3 + 3} \d x.
+\]
+\end{example}
+
+\begin{solution}Wir starten mit der Vermutung:
+\[
+\int \frac{2x^2}{7x^3 + 3} \d x \approx \ln(7x^3+3).
+\]
+Wir leiten unsere Vermutung ab, um zu sehen ob sie stimmt:
+\[
+\ddx \ln(7x^3+3) = \frac{21x^2}{7x^3 + 3}.
+\]
+Es fehlt nur ein Faktor $2/21$,also multiplizieren wir unsere Vermutung mit dieser Konstanten um die Lösung zu erhalten:
+\[
+\int \frac{2x^2}{7x^3 + 3} \d x = (2/21)\ln(7x^3+3)+C.
+\]
+\end{solution}
+
+
+
+
+\begin{template}\label{template:trigchain}
+Wenn das undefinierte Integral \emph{irgendwie} wie folgt ausschaut:
+\[
+\int \mathrm{??}\cdot \sin(\mathrm{Zeugs}) \d x \qquad\text{dann vermuten Sie}\qquad \cos(\mathrm{Zeugs}) \text{ \textbf{oder} }\mathrm{??}
+\cdot \cos(\mathrm{Zeugs}),
+\]
+ebenfalls wenn  
+\[
+\int \mathrm{??}\cdot \cos(\mathrm{Zeugs}) \d x \qquad\text{dann vermuten Sie}\qquad \sin(\mathrm{Zeugs}) \text{ \textbf{oder} }\mathrm{??}
+\cdot \sin(\mathrm{Zeugs}),
+\]
+\end{template}
+
+
+
+\begin{example}
+Berechnen Sie
+\[
+\int x^4\sin(3x^5+7) \d x.
+\]
+\end{example}
+
+
+\begin{solution}
+Wir versuchen nun die Stammfunktion zu erraten. Wir starten mit der Vermutung
+\[
+\int x^4\sin(3x^5+7)\d x \approx \cos(3x^5+7).
+\]
+TUm zu sehen ob unsere Vermutung stimmt, leiten wir $\cos(3x^5+7)$ ab
+\[
+\ddx \cos(3x^5+7) = -15x^4\sin(3x^5+7).
+\]
+Es fehlt ein Faktor $-1/15$. also multiplizieren wir unsere Vermutung mit dieser Konstanten um die Lösung zu erhalten:
+\[
+\int x^4\sin(3x^5+7) \d x = \frac{-\cos(3x^5+7)}{15} + C.
+\]
+\end{solution}
+
+
+
+
+
+\subsection*{Abschliessende Bemerkungen}
+
+Es gibt keine Methode die immer funktioniert. Das Verständnis der Beispiele wird für Sie sehr wahrscheinlich nicht genügen um gut im integrieren zu werden. Sie müssen üben, üben, üben!!
+
+
+
+\begin{exercises}
+\noindent Berechnen Sie die folgenden Stammfunktionen.
+\begin{multicols}{2}
+\begin{exercise}
+$\int 5\d x$
+\begin{answer}
+$5x+C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int \left(-7x^4+8\right)\d x$
+\begin{answer}
+$-7x^5/5 +8x + C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int \left(2e^x -4\right)\d x$
+\begin{answer}
+$2e^x -4x + C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int \left(7^x - x^7\right)\d x$
+\begin{answer}
+$7^x/\ln(7) - x^8/8 +C$
+\end{answer}
+\end{exercise}
+
+
+\begin{exercise}
+$\int \left(\frac{15}{x}+x^{15}\right)\d x$
+\begin{answer}
+$15\ln(x) + x^{16}/16 + C$
+\end{answer}
+\end{exercise}
+
+
+\begin{exercise}
+$\int \left(-3\sin(x) + \tan(x)\right)\d x$
+\begin{answer}
+$3\cos(x) -\ln|\cos(x)|+C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int \left(\sec^2(x) -\csc^2(x)\right) \d x$
+\begin{answer}
+$\tan(x) + \cot(x) + C$
+\end{answer}
+\end{exercise}
+
+
+\begin{exercise}
+$\int\left(\frac{1}{x} + \frac{1}{x^2} + \frac{1}{\sqrt{x}}\right)\d x$
+\begin{answer}
+$\ln|x|  - x^{-1} + 2\sqrt{x} +C$ 
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int\left(\frac{17}{1 + x^2} +\frac{13}{x}\right)\d x$
+\begin{answer}
+$17\arctan(x) + 13\ln|x| +C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int\left(\frac{\csc(x)\cot(x)}{4} - \frac{4}{\sqrt{1-x^2}}\right)\d x$
+\begin{answer}
+$-\csc(x)/4 - 4\arcsin(x) + C$
+\end{answer}
+\end{exercise}
+
+\end{multicols}
+
+
+
+\noindent Benutzen Sie Daumenregel~\ref{template:powerchain} um die folgenden Stammfunktionen zu berechnen:
+\begin{multicols}{2}
+\begin{exercise}
+$\int 2x (x^2+4)^5 \d x$
+\begin{answer}
+$(x^2+4)^6/6 + C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int \frac{(\ln(x))^4}{x} \d x$ 
+\begin{answer}
+$(\ln(x))^5/5 +C$
+\end{answer}
+\end{exercise}
+
+
+\begin{exercise}
+$\int \frac{1}{\sqrt{2x +1}} \d x$ 
+\begin{answer}
+$\sqrt{2x+1} + C$
+\end{answer}
+\end{exercise}
+
+\columnbreak
+
+\begin{exercise}
+$\int \frac{x}{\sqrt{x^2+1}} \d x$
+\begin{answer}
+$\sqrt{x^2+1} + C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int x\sqrt{4-x^2} \d x$
+\begin{answer}
+$-(4-x^2)^{3/2}/3 +C$
+\end{answer}
+\end{exercise}
+
+
+\begin{exercise}
+$\int \frac{\sqrt{\ln(x)}}{x} \d x$ 
+\begin{answer}
+$2(\ln(x))^{3/2}/3 +C$
+\end{answer}
+\end{exercise}
+\end{multicols}
+
+\noindent Benutzen Sie Daumenregel~\ref{template:echain} um die folgenden Stammfunktionen zu berechnen:
+
+\begin{multicols}{2}
+\begin{exercise}
+$\int 3x^2 e^{x^3-1} \d x$ 
+\begin{answer}
+$e^{x^3-1} + C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int x e^{3(x^2)} \d x$ 
+\begin{answer}
+$e^{3(x^2)}/6+C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int 2x e^{-(x^2)} \d x$ 
+\begin{answer}
+$-e^{-(x^2)} + C$
+\end{answer}
+\end{exercise}
+
+\columnbreak
+
+\begin{exercise}
+$\int \frac{8x}{e^{(x^2)}}\d x$ 
+\begin{answer}
+$-4e^{-(x^2)} +C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int x e^{5x} \d x$ 
+\begin{answer}
+$xe^{5x}/5 - e^{5x}/25 + C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int x e^{-x/2} \d x$ 
+\begin{answer}
+$-4e^{-x/2}  - 2xe^{-x/2} +C$
+\end{answer}
+\end{exercise}
+\end{multicols}
+
+\noindent Benutzen Sie Daumenregel~\ref{template:lnchain} um die folgenden Stammfunktionen zu berechnen:
+
+\begin{multicols}{2}
+\begin{exercise}
+$\int \frac{1}{2x} \d x$
+\begin{answer}
+$\ln(2x)/2 + C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int \frac{x^4}{x^5+1} \d x$
+\begin{answer}
+$\ln(x^5+1)/5 +C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int \frac{x^2}{3-x^3} \d x$  
+\begin{answer}
+$-\ln(3-x^3)/3+C$
+\end{answer}
+\end{exercise}
+
+\columnbreak
+
+\begin{exercise}
+$\int \frac{1}{x\ln(x)} \d x$ 
+\begin{answer}
+$\ln(\ln(x))+C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int \frac{e^{2x}-e^{-2x}}{e^{2x}+e^{-2x}} \d x$ 
+\begin{answer}
+$\ln(e^{2x}+e^{-2x})/2 +C$
+\end{answer}
+\end{exercise}
+\end{multicols}
+
+\begin{exercise}
+$\int \frac{1}{x\ln(x^2)} \d x$ 
+\begin{answer}
+$\ln(\ln(x^2))/2 + C$
+\end{answer}
+\end{exercise}
+
+
+\noindent Benutzen Sie Daumenregel~\ref{template:trigchain} um die folgenden Stammfunktionen zu berechnen:
+
+
+\begin{multicols}{2}
+\begin{exercise}
+$\int 5x^4 \sin(x^5+3) \d x$ 
+\begin{answer}
+$-\cos(x^5+3) +C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int x \cos(-2x^2) \d x$
+\begin{answer}
+$-\sin(-2x^2)/4 +C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int x \sin(5x^2) \d x$
+\begin{answer}
+$-\cos(5x^2)/10 +C$
+\end{answer}
+\end{exercise}
+
+\columnbreak
+
+\begin{exercise}
+$\int 8x\cos(x^2)\d x$       
+\begin{answer}
+$4\sin(x^2)+C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int 6e^{3x} \sin(e^{3x}) \d x$   
+\begin{answer}
+$-2\cos(e^{3x})+C$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int \frac{\cos(\ln(x))}{x} \d x$ 
+\begin{answer}
+$\sin(\ln(x)) + C$
+\end{answer}
+\end{exercise}
+\end{multicols}
+\end{exercises}
+
+

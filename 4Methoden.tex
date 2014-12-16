@@ -1,0 +1,507 @@
+\chapter{Methoden der Integralrechnung}
+
+
+\section{Integration durch Substitution}
+
+Integrale zu finden ist nicht so einfach wie Ableitungen zu berechnen. Einer der Gründe ist die Tatsache, dass die Kettenregel recht schwierig sein kann ``rückgängig zu machen''. Teilweise ist es hilfreich, das betreffende Integral mit Hilfe der \textit{Substitution} zu transformieren.
+
+
+\marginnote[.5in]{Wie verwenden hier die Notation etwas missbräuchlich, und erlauben es das $u$ zugleich der Name einer Funktion $u(x)$ wie auch eine Variable (im zweiten Integral) sein kann.}
+\begin{mainTheorem}[Substitutionsregel] 
+Sei $u(x)$ differenzierbar über dem Intervall $[a,b]$ und $f(x)$ sei differenzierbar
+über dem Intervall $[u(a),u(b)]$, dann gilt
+\[
+\int_a^b f'(u(x)) u'(x) \d x =\int_{u(a)}^{u(b)} f'(u) \d u.
+\]
+\end{mainTheorem}
+\begin{proof} Zunächst erkennen wir die Kettenregel im linken Teil der Regel:
+\[
+\int_a^b f'(u(x)) u'(x) \d x = \int_a^b (f\circ u)'(x) \d x.
+\]
+Zur Erinnerung:
+\[ \ddx f(u(x)) = \ddx (f\circ u)(x) =f'(u(x))u'(x) \]
+Als nächstes benutzen wir den Fundamentalsatz der Analysis (Kapitel 3): 
+\begin{align*} 
+\int_a^b (f\circ u)'(x) \d x &= f(u(x)) \bigg|_a^b \\
+&= f(x) \bigg|_{u(a)}^{u(b)}\\ 
+&= \int_{g(a)}^{g(b)} f'(u) \d u.
+\end{align*}
+\end{proof}
+
+Es gibt verschiedene Arten mit Hilfe der Substitution Integrale zu berechnen. Wir starten mit einem Beispiel in dem wir die Gleichung von oben direkt benützen:
+\begin{example}
+Bestimmen Sie
+\[
+\int_1^3 x\cos(x^2)\d x.
+\]
+\end{example}
+
+\marginnote[1.25in]{Hier benutzen wir direkt die Gleichung
+\[
+\int_a^b f'(u(x)) u'(x) \d x = \int_{u(a)}^{u(b)} f'(u) \d u.
+\]}
+
+\begin{solution}
+Eine kurze Überlegung zeigt, dass wenn $x\cos(x^2)$ die Ableitung einer Funktion ist, dann muss zum Ableiten dieser Funktion die Kettenregel verwendet worden sein. Wir haben nämlich hier $x$ auf der ``Aussenseite'', was der Ableitung von $x^2$ von der ``Innenseite'' entspricht (bis auf einen Faktor 2):
+\[
+\int \underbrace{x}_{\text{Aussenseite}}\cos(\underbrace{x^2}_{\text{Innenseite}})\d x.
+\]
+Wir setzen $u(x) = x^2$, somit gilt für $u'(x) = 2x$ und mit der Substitutionsregel $f(u) =
+\frac{\cos(u)}{2}$. Damit erhalten wir:
+\begin{align*}
+\int_1^3 x\cos(x^2)\d x &= \int_1^9 \frac{\cos(u)}{2}\d u\\
+&= \frac{\sin(u)}{2} \bigg|_1^9 \\
+&= \frac{\sin(9) -\sin(1)}{2}.
+\end{align*}
+\end{solution}
+
+Teilweise suchen wir die Lösung auf einem etwas anderen Weg. Wir machen das gleiche Beispiel nohmals, jedoch mit einem etwas anderen Ansatz, wir benutzen Differenziale:
+
+
+\begin{example}
+Bestimmen Sie
+\[
+\int_1^3 x\cos(x^2)\d x.
+\]
+\end{example}
+\begin{solution}
+Nun setzen wir $u=x^2$. Und damit $du = 2x \d x$, wir arbeiten hier mit Differenzialen ($du$ wird hier ein Differenzial genannt, ein Differenzial wird definiert als der lineare Anteil des Zuwachses einer Variablen oder einer Funktion). Damit erhalten wir:
+\[
+\int_{u(1)}^{u(3)} \frac{\cos(u)}{2}\d u = \int_1^3\frac{\cos(x^2)}{2}2x\d x.
+\]
+Ab hier können wir wie zuvor weiterfahren und schreiben
+\[
+\int_1^3 x\cos(x^2)\d x= \frac{\sin(9) -\sin(1)}{2}.
+\]
+\end{solution}
+
+Ein anderes Mal möchten wir vielleicht einfach mit der Stammfunktion selbst arbeiten. Wir wiederholen das Beispiel nochmals um dies zu zeigen:
+
+\begin{example}
+Bestimmen Sie
+\[
+\int_1^3 x\cos(x^2)\d x.
+\]
+\end{example}
+\begin{solution}
+Hier beginnen wir wie zuvor und setzen $u=x^2$. Nun ist $du = 2x \d x$,
+wieder in Differenzialen gedacht. Nun sehen wir dass
+\[
+\int  \frac{\cos(u)}{2}\d u = \int \frac{\cos(x^2)}{2}2x\d x.
+\]
+und damit 
+\[
+\int x\cos(x^2)\d x = \frac{\sin(u)}{2} = \frac{\sin(x^2)}{2}.
+\]
+Somit
+\begin{align*}
+\int_1^3 x\cos(x^2)\d x &=\frac{\sin(x^2)}{2}\bigg|_1^3\\
+&= \frac{\sin(9) -\sin(1)}{2}.
+\end{align*}
+\end{solution}
+
+Mit etwas Übung ist es nicht mehr schwierig zu sehen, welche Funktion $f(x)$ und welche $u(x)$ ist. Betrachten wir noch ein weiteres Beispiel:
+\begin{example}
+Bestimmen Sie
+\[
+\int x^4(x^5+1)^{99} \d x.
+\]
+\end{example}
+
+\begin{solution}
+Hier setzen wir $u = x^5+1$, damit wird $du = 5x^4 \d x$, und $f(u) = \frac{u^{99}}{5}$. Somit:
+\begin{align*}
+\int x^4(x^5+1)^{99} \d x &= \int \frac{u^{99}}{5} \d u\\
+&= \frac{u^{100}}{500}.
+\end{align*}
+Erinnern wir uns daran, dass $u = x^5+1$, und wir haben somit unsere Antwort:
+\[
+\int x^4(x^5+1)^{99} \d x= \frac{(x^5+1)^{100}}{500}+C.
+\]
+\end{solution}
+
+
+Das nächste Beispiel ist etwas anders:
+
+\begin{example}
+Bestimmen Sie
+\[
+\int_{2}^{3} \frac{1}{x\ln(x)} \d x.
+\]
+\end{example}
+
+\begin{solution}
+Sei $u=\ln(x)$ und damit $du=\frac{1}{x}\d x$. Wir schreiben
+\begin{align*}
+\int_{2}^{3} \frac{1}{x\ln(x)} \d x = \int_{\ln(2)}^{\ln(3)} \frac{1}{u} \d u\\
+&= \ln(u) \bigg|_{\ln(2)}^{\ln(3)}\\
+& = \ln(\ln(3)) - \ln(\ln(2)).
+\end{align*}
+\end{solution}
+
+
+Das nächste Beispiel wird schwieriger:
+
+\begin{example} Bestimmen Sie
+\[
+\int x^3\sqrt{1-x^2}\d x.
+\]
+\end{example}
+
+\begin{solution} 
+Hier scheint die Kettenregel nicht offensichtlich involviert zu sein. Wenn sie jedoch involviert wäre, würde wahrscheinlich der folgende Ansatz für $u$ gut passen:
+
+\[
+u = 1-x^2
+\]
+in diesem Fall
+\[
+du = -2x \d x.
+\]
+Nun betrachten wir unser unbestimmtes Integral:
+\[
+\int x^3\sqrt{1-x^2}\d x,
+\]
+und substituieren wie folgt:
+\[
+\int x^3\sqrt{1-x^2}\d x = \int -\frac{x^2\sqrt{u}}{2}\d u.
+\]
+Wir können hier jedoch nicht weiterfahren, solange noch ein $x$ im Ausdruck steht. Jedes $x$ mus ersetzt werden durch einen Ausdruck mit $u$:
+\begin{align*}
+u &= 1-x^2 \\
+u -1 &= -x^2\\
+1- u &= x^2
+\end{align*}
+nun können wir das Integral schreiben als:
+\[
+\int x^3\sqrt{1-x^2}\d x = \int -\frac{(1-u)\sqrt{u}}{2}\d u.
+\]
+Nun sind wir fast fertig. Wir vereinfachen und integrieren:
+\begin{align*}
+\int -\frac{(1-u)\sqrt{u}}{2}\d u &= \int \left(\frac{u\sqrt{u}}{2} - \frac{\sqrt{u}}{2}\right) \d u \\
+&= \int \frac{u^{3/2}}{2} \d u - \int \frac{\sqrt{u}}{2} \d u \\
+&= \frac{u^{5/2}}{5} - \frac{u^{3/2}}{3}.
+\end{align*}
+Wir erinnern uns, dass $u = 1-x^2$. Also wird die Antwort zu:
+\[
+\int x^3\sqrt{1-x^2}\d x = \frac{(1-x^2)^{5/2}}{5} - \frac{(1-x^2)^{3/2}}{3}+C.
+\]
+\end{solution}
+
+Zusammenfassend können wir folgendes sagen: Wenn wir vermuten, dass eine gegebene Funktion die Ableitung einer anderen durch Anwedung der Kettenregel ist, so setzen wir $u$ mit einem wahrscheinlichen Kandidaten für die innere Funktion gleich, dann schreiben wir die Funktion um, so dass darin nur noch die Variable $u$ vorkommt (ohne $x$ im Ausdruck). Wenn wir nun diese neue Funktion von $u$ integrieren können, so erhalten wir die Stammfunktion der ursprünglichen Funktion in dem wir am Schluss die $u$'s wieder durch die Ausdrücke mit $x$ ersetzen.
+
+
+\begin{exercises}
+Lösen Sie mit der Substitutionsregel:
+\twocol
+
+\begin{exercise} $\int (1-t)^9\d t$
+\begin{answer} $-(1-t)^{10}/10+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int (x^2+1)^2\d x$
+\begin{answer} $x^5/5+2x^3/3+x+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int x(x^2+1)^{100}\d x$
+\begin{answer} $(x^2+1)^{101}/202+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int {1\over\root 3 \of {1-5t}}\d t$ 
+\begin{answer} $-3(1-5t)^{2/3}/10+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int s^3\sqrt{1-s^2}\d s$
+\begin{answer} $\frac{(1-s^2)^{5/2}}{5} - \frac{(1-s^2)^{3/2}}{3}+C$
+\end{answer}\end{exercise}
+\begin{exercise} $\int \sin^3x\cos x\d x$
+\begin{answer} $(\sin^4x)/4+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int x\sqrt{100-x^2}\d x$
+\begin{answer} $-(100-x^2)^{3/2}/3+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int {x^2\over\sqrt{1-x^3}}\d x$
+\begin{answer} $-2\sqrt{1-x^3}/3+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int \cos(\pi t)\cos\bigl(\sin(\pi t)\bigr)\d t$
+\begin{answer} $\sin(\sin\pi t)/\pi+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int {\sin x\over\cos^3 x}\d x$
+\begin{answer} $1/(2\cos^2 x)=(1/2)\sec^2x+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int\tan x\d x$
+\begin{answer} $-\ln|\cos x|+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_{2}^{3} \frac{1}{t\ln(t)} \d t$
+\begin{answer} $\ln(\ln(3)) - \ln(\ln(2))$
+\end{answer}\end{exercise}
+
+\begin{exercise}  $\int_0^\pi\sin^5(3x)\cos(3x)\d x$
+\begin{answer} $0$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int\sec^2x\tan x\d x$
+\begin{answer} $\tan^2(x)/2+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_0^{\sqrt{\pi}/2} x\sec^2(x^2)\tan(x^2)\d x$
+\begin{answer} $1/4$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int {\sin(\tan x)\over\cos^2x}\d x$
+\begin{answer} $-\cos(\tan x)+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_3^4 {1\over(3x-7)^2}\d x$
+\begin{answer} $1/10$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_0^{\pi/6}(\cos^2x - \sin^2x)\d x$
+\begin{answer} $\sqrt3/4$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int {6x\over(x^2 - 7)^{1/9}}\d x$
+\begin{answer} $(27/8)(x^2-7)^{8/9}$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_{-1}^1 (2x^3-1)(x^4-2x)^6\d x$
+\begin{answer} $-(3^7+1)/14$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_{-1}^1 \sin^7 x\d x$
+\begin{answer} $0$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int f(x) f'(x)\d x$ 
+\begin{answer} $f(x)^2/2$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int \frac{3}{4x+1} \d x$ 
+\begin{answer} $\frac{3}{4} \ln(4x+1) +C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_{0}^{4} e^{\frac{1}{2} x} \d x$ 
+\begin{answer} $2 e^{2} -2$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_{0}^{\sqrt{\pi}} x \sin(x^{2}) \d x$ 
+\begin{answer} $1$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int_{\frac{\pi}{4}}^{\frac{\pi}{2}} \frac{\cos(x)}{\sqrt{\sin(x)}} \d x$ 
+\begin{answer} $2 - \sqrt[4]{8}$
+\end{answer}\end{exercise}
+
+\endtwocol
+
+\end{exercises}
+
+
+
+
+
+\section{Partielle Integration}
+
+Während uns die Substitutionsregel erlaubt die Kettenregel ``umzukehren'', hilft uns die \textit{Partielle Integration} bei der Produktregel weiter.
+
+\begin{mainTheorem}[Partielle Integration] 
+Wenn $f(x)g(x)$ differenzierbar über dem Intervall $[a,b]$ ist, dann gilt:
+\[
+\int_a^b f(x) g'(x) \d x =f(x)g(x) \bigg|_a^b - \int_a^b f'(x) g(x) \d x.
+\]
+\end{mainTheorem}
+\begin{proof} Wir beginnen mit der Produktregel aus der Differenzialrechnung
+\[
+\ddx f(x)g(x) = f(x)g'(x) + f'(x) g(x).
+\]
+Als nächstes integrieren wir beide Seiten dieser Gleichung
+\[
+\int_a^b \ddx f(x) g(x) \d x = \int_a^b \left(f(x)g'(x) + f'(x) g(x)\right) \d x.
+\]
+Laut dem Fundamentalsatz der Analysis (Kapitel 3) ist die linke Seite der Gleichung:
+\[
+f(x)g(x) \bigg|_a^b.
+\]
+Laut der Summenregel der Integralrechung gilt für die rechte Seite:
+\[
+\int_a^b f(x)g'(x)\d x + \int_a^b f'(x) g(x) \d x.
+\]
+Somit
+\[
+f(x)g(x) \bigg|_a^b = \int_a^b f(x)g'(x)\d x + \int_a^b f'(x) g(x) \d x.
+\]
+und daraus folgt: 
+\[
+ \int_a^b f(x)g'(x)\d x = f(x)g(x) \bigg|_a^b -  \int_a^b f'(x) g(x) \d x.
+\]
+\end{proof}
+
+Die Partielle Integration wird oft in der folgenden kompakten Form geschrieben:
+\[
+\int u\d v = uv-\int v\d u,
+\]
+wobei $u=f(x)$, $v=g(x)$, $du=f'(x)\d x$ and $dv=g'(x)\d x$.  Um diese Technik zu benutzen müssen wir zunächst geeignete Kandidaten für $u=f(x)$ und
+$dv=g'(x)\d x$ finden.
+
+
+
+\begin{example}
+Bestimmen Sie
+\[
+\int \ln(x)\d x.
+\]
+\end{example}
+
+\begin{solution}
+Sei $u=\ln(x)$ dann ist $du=1/x\d x$. Also ist $dv=1\d x$ und $v=x$
+und damit
+\begin{align*}
+ \int \ln(x)\d x&=x\ln (x)-\int \frac{x}{x}\d x\\
+&= x\ln (x)- x+C.\\
+\end{align*}
+\end{solution}
+
+\begin{example}
+Bestimmen Sie
+\[
+\int x\sin(x) \d x.
+\]
+\end{example}
+
+\begin{solution} Sei $u=x$ dann ist $du=dx$. Also ist $dv=\sin(x)\d x$ und $v=-\cos(x)$ und damit
+\begin{align*}
+\int x\sin(x)\d x &=-x\cos(x)-\int -\cos(x)\d x\\
+&= -x\cos(x)+\int \cos(x)\d x\\
+&=-x\cos(x)+\sin x+C.
+\end{align*}
+\end{solution}
+
+
+\begin{example}
+Bestimmen Sie
+\[
+\int x^2\sin(x)\d x.
+\] 
+\end{example}
+
+\begin{solution}
+Wir setzen $u=x^2$, $dv=\sin(x)\d x$; und damit $du=2x\d x$ und $v=-\cos(x)$. 
+Daraus folgt, dass 
+\[
+\int x^2\sin(x)\d x=-x^2\cos(x)+\int 2x\cos(x)\d x.
+\] 
+Dieses Integral ist besser als das anfängliche, aber wir müssen die Partielle Integration nochmals durchführen! Sei $u=2x$, $dv=\cos(x)\d x$; dann ist $du=2$
+und $v=\sin(x)$, und somit
+\begin{align*}
+  \int x^2\sin(x)\d x &=-x^2\cos(x)+\int 2x\cos(x)\d x \\
+  &=-x^2\cos(x)+ 2x\sin(x) - \int 2\sin(x)\d x \\
+  &=-x^2\cos(x)+ 2x\sin(x) + 2\cos(x) + C. 
+\end{align*}
+\end{solution}
+Das wiederholte Anwenden der Partiellen Integration ist oft notwendig.Aber es kann teilweise etwas mühsam werden und es ist leicht Fehler zu machen. Besonders Vorzeichenfehler passieren sehr schnell. Man kann eine Tabelle benutzen, um den Prozess etwas zu beschleunigen und die Wahrscheinlichkeit für solche Fehler zu minimieren, wir betrachten dies anhand des letzten Beispiels:
+\[
+\begin{array}{|c|c|c|}\hline
+\text{sign} & u & dv \\ \hline \hline
+ & x^2 & \sin(x) \\ \hline
+- & 2x & -\cos(x) \\ \hline
+  & 2  & -\sin(x) \\ \hline
+- & 0  & \cos(x) \\ \hline
+\end{array}
+\qquad\text{or}\qquad
+\begin{array}{|c|c|}\hline
+u & dv \\ \hline\hline
+x^2 & \sin(x) \\ \hline 
+-2x & -\cos(x) \\\hline
+2 & -\sin(x)\\\hline
+0 & \cos(x)\\\hline
+\end{array}
+\]
+
+Um die Tabelle zu machen, starten wir mit $u$ am Anfang der zweiten Spalte und berechnen für jede Zeile die Ableitung von der oberen Zeile. In der dritten Spalte starten wir mit $dv$ und berechnen auch hier in jeder Zeile die Ableitung von der oberen. In der ersten Spalte setzen wir in jeder zweiten Zeile ein Minuszeichen. Um die zweite Tabelle (rechts) zu machen, verbinden wir die ersten beiden Spalten der linken Tabelle. 
+
+Um nun mit Hilfe der zweiten Tabelle zu rechnen, starten wir in der ersten Zeile: Wir multiplizieren den ersten Eintrag in der Spalte $u$ mit dem zweiten Eintrag in der Spalte $dv$ und erhalten damit $-x^2\cos(x)$. Dies addieren wir zum Integral des Produktes aus dem zweiten Eintrag der Spalte $u$ mit dem zweiten Eintrag der Spalte $dv$. Dies gibt dann:
+$$-x^2\cos(x)+\int 2x\cos(x)\d x,$$
+und somit das Resultat der ersten Anwendung der Partiellen Integration. Da dieses Integral immer noch nicht einfach ist, benutzen wir die Tabelle erneut:
+Nun multiplizieren wir zweimal über die Diagonale, $(x^2)(-\cos(x))$ und
+$(-2x)(-\sin(x))$ und dann einmal quer durch; $(2)(-\sin(x))$, und kombinieren dies zu
+\[
+-x^2\cos(x)+2x\sin(x)-\int 2\sin(x)\d x,
+\]
+was uns das gleiche Resultat ergibt wie die zweimalige Anwendung der Partiellen Integration. Wir benutzen nun die Tabelle noch ein drittes Mal:
+Wir multiplizieren dreimal über die Diagonale und erhalten $(x^2)(-\cos(x))$, $(-2x)(-\sin(x))$, und $(2)(\cos(x))$, einmal quer durch; $(0)(\cos(x))$. Wir kombinieren wie zuvor und erhalten:
+\[
+  -x^2\cos(x)+2x\sin(x) +2\cos(x)+\int 0\d x=
+  -x^2\cos(x)+2x\sin(x) +2\cos(x)+C.
+\]
+Typischerweise füllen Sie die Tabelle Zeile für Zeile aus, bis die ``quer durch'' Multiplikation ein einfaches Integral ergibt. Wenn wir jedoch sehen, dass die $u$ Spalte einmal Null werden wird, so können wir auch direkt die ganze Tabelle ausfüllen.
+
+\begin{exercises}
+\noindent Berechnen Sie die unbestimmten Integrale:
+
+\twocol
+
+\begin{exercise} $\int x\cos x\d x$
+\begin{answer} $\cos x+x\sin x+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int x^2\cos x\d x$
+\begin{answer} $x^2\sin x-2 \sin x+2x\cos x +C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int xe^x\d x$
+\begin{answer} $(x-1)e^x +C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int xe^{x^2}\d x$
+\begin{answer} $(1/2)e^{x^2} +C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int \sin^2 x\d x$
+\begin{answer} $(x/2)-\sin(2x)/4 +C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int \ln x\d x$
+\begin{answer} $x\ln x-x +C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int x\arctan x\d x$
+\begin{answer} $(x^2\arctan x +\arctan x -x)/2+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int x^3\sin x\d x$
+\begin{answer} $-x^3\cos x+3x^2\sin x+6x\cos x-6\sin x+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int x^3\cos x\d x$
+\begin{answer} $x^3\sin x+3x^2\cos x-6x\sin x-6\cos x+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int x\sin^2 x\d x$
+\begin{answer} $x^2/4-(\cos^2 x)/4-(x\sin x\cos x)/2+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int x\sin x\cos x\d x$
+\begin{answer} $x/4-(x\cos^2 x)/2+(\cos x\sin x)/4+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int \arctan(\sqrt x)\d x$
+\begin{answer} $x\arctan(\sqrt x)+\arctan(\sqrt x)-\sqrt{x}+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int \sin(\sqrt x)\d x$
+\begin{answer} $2\sin(\sqrt x)-2\sqrt x\cos(\sqrt x)+C$
+\end{answer}\end{exercise}
+
+\begin{exercise} $\int\sec^2 x\csc^2 x\d x$
+\begin{answer} $\sec x\csc x-2\cot x+C$
+\end{answer}\end{exercise}
+
+\endtwocol
+
+\end{exercises}

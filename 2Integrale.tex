@@ -1,0 +1,855 @@
+\chapter{Integrale}
+
+\section{Bestimmte Integrale und Flächen}
+
+Bestimmte Integrale (man nennt sie oft auch einfach Integrale), verwendet man, um Flächen zu berechnen.
+
+\begin{definition}\index{Integral}\index{bestimmtes Integral}
+Das \textbf{bestimmte Integral}
+\[
+\int_a^b f(x) \d x
+\]
+berechnet die die Fläche in der Region $[a,b]$ zwischen $f(x)$ und der $x$-Achse.
+Liegt die Region oberhalb der $x$-Achse, so besitzt die Fläche ein positives Vorzeichen. Liegt die Region unterhalb der $x$-Achse, so besizt die Fläche ein negatives Vorzeichen. 
+
+\end{definition}
+
+\begin{example}
+Berechnen Sie
+\[
+\int_0^3 x \d x.
+\]
+\end{example}
+\begin{marginfigure}
+\begin{tikzpicture}
+  \begin{axis}[
+      xmin=0, xmax=3,ymin=0,ymax=3,domain=0:3,
+      axis lines =center, xlabel=$x$, ylabel=$y$,
+      every axis y label/.style={at=(current axis.above origin),anchor=south},
+      every axis x label/.style={at=(current axis.right of origin),anchor=west},
+      axis on top,
+    ] 
+    \addplot [draw=none, fill=fillp] {x} \closedcycle;
+    \addplot [penColor,very thick] {x};
+  \end{axis}
+\end{tikzpicture}
+\caption{Das Integral $\int_0^3 x \d x$ berechnet die graue Fläche.}
+\label{figure:intfirst}
+\end{marginfigure}
+
+\begin{solution}
+Das bestimmte Integral $\int_0^3 x \d x$ berechnet die Fläche der grauen Region in Abbildung~\ref{figure:intfirst}. Da diese Region ein Dreieck ist, können wir die Formel zur Berechnung der Dreieckfläche verwenden: 
+
+\[
+\int_0^3 x \d x = \frac{1}{2} 3\cdot 3 = 9/2.
+\]
+\end{solution}
+
+Wenn wir mit Flächen rechnen, heben sich positive und negative Flächen auf.
+
+
+\begin{example} Berechnen Sie
+\[
+\int_{-1}^3 \lfloor x \rfloor \d x.
+\]
+\end{example}
+
+\begin{marginfigure}[0in]
+\begin{tikzpicture}
+  \begin{axis}[
+      domain=-1:3,
+      axis lines =middle, xlabel=$x$, ylabel=$y$,
+      every axis y label/.style={at=(current axis.above origin),anchor=south},
+      every axis x label/.style={at=(current axis.right of origin),anchor=west},
+      clip=false,
+      axis on top,
+    ]
+    \addplot [draw=none, fill=filln, domain=(-1:0)] {-1} \closedcycle;
+    \addplot [draw=none, fill=fillp, domain=(0:1)] {0} \closedcycle;
+    \addplot [draw=none, fill=fillp, domain=(1:2)] {1} \closedcycle;
+    \addplot [draw=none, fill=fillp, domain=(2:3)] {2} \closedcycle;
+    \addplot [very thick, penColor, domain=(-1:0)] {-1};
+    \addplot [very thick, penColor, domain=(0:1)] {0};
+    \addplot [very thick, penColor, domain=(1:2)] {1};
+    \addplot [very thick, penColor, domain=(2:3)] {2};
+    \addplot[color=penColor,fill=penColor,only marks,mark=*] coordinates{(-1,-1)};  %% closed hole          
+    \addplot[color=penColor,fill=penColor,only marks,mark=*] coordinates{(0,0)};  %% closed hole          
+    \addplot[color=penColor,fill=penColor,only marks,mark=*] coordinates{(1,1)};  %% closed hole          
+    \addplot[color=penColor,fill=penColor,only marks,mark=*] coordinates{(2,2)};  %% closed hole  
+    \addplot[color=penColor,fill=penColor,only marks,mark=*] coordinates{(3,3)};  %% closed hole                  
+    \addplot[color=penColor,fill=background,only marks,mark=*] coordinates{(0,-1)};  %% open hole
+    \addplot[color=penColor,fill=background,only marks,mark=*] coordinates{(1,0)};  %% open hole
+    \addplot[color=penColor,fill=background,only marks,mark=*] coordinates{(2,1)};  %% open hole
+    \addplot[color=penColor,fill=background,only marks,mark=*] coordinates{(3,2)};  %% open hole
+
+    \node at (axis cs:-.5,-.5) [textColor] {\scalebox{2}{$\boldsymbol-$}};
+    \node at (axis cs:2,.5) [textColor] {\scalebox{2}{$\boldsymbol+$}};
+  \end{axis}
+\end{tikzpicture}
+\caption{Das Integral $\int_{-1}^3 \lfloor x\rfloor \d x$ berechnet die Fläche der grauen Region. Die Fläche oberhalb der $x$-Achse besitzt ein positives Vorzeichen, die Fläche unterhalb der $x$-Achse ein negatives Vorzeichen.}
+\label{plot:int-greatist-integer}
+\end{marginfigure}
+
+\begin{solution}
+Das bestimmte Integral $\int_{-1}^3 \lfloor x\rfloor \d x$ berechnet die Fläche der schattierten Region aus Abbildung~\ref{plot:int-greatist-integer}. Wir sehen dass
+\[
+\int_{-1}^3 \lfloor x\rfloor \d x = 
+\int_{-1}^0 \lfloor x\rfloor \d x + \int_{0}^1 \lfloor x\rfloor \d x + \int_{1}^2 \lfloor x\rfloor \d x + \int_{2}^3 \lfloor x\rfloor \d x.
+\]
+Also:
+\begin{align*}
+\int_{-1}^3 \lfloor x\rfloor \d x &= -1 + 0 + 1+2 \\
+&= 2.
+\end{align*}
+\end{solution}
+
+Die Beispiele geben Einsicht für den nächsten Satz:
+
+\begin{mainTheorem}[Eigenschaften bestimmter Integrale]
+\begin{enumerate}
+\item $\int_a^b k \d x= kb-ka$, wobei $k$ eine Konstante ist.
+\item $\int_a^b \left( f(x) + g(x) \right) \d x = \int_a^b f(x) \d x + \int_a^b
+  g(x) \d x$.
+\item $\int_a^b k \cdot f(x) \d x = k \int_a^b f(x) \d x$.
+\end{enumerate}
+\end{mainTheorem}
+
+
+\subsection*{Die Integralfunktion}
+Das bestimmte Integral berechnet die bezeichnete Fläche, was eine Zahl ergibt. Man kann das bestimmte Integral aber auch in eine Funktion verwandeln:
+\begin{definition}
+Für eine gegebene Funktion $f(x)$,ist die \textbf{Integralfunktion} gegeben durch 
+\[
+F(x) = \int_a^x f(t) \d t.
+\]
+\end{definition}
+
+Die Integralfunktion scheint zwei Variablen zu besitzen, $x$ und $t$. Versuchen wir das zu Verstehen. Betrachten Sie dazu den folgenden Plot:
+
+\begin{tikzpicture}
+	\begin{axis}[
+            domain=0:6, ymax=2.2,xmax=6,
+            axis lines =left, xlabel=$t$, ylabel=$y$,
+            every axis y label/.style={at=(current axis.above origin),anchor=south},
+            every axis x label/.style={at=(current axis.right of origin),anchor=west},
+            xtick={1,5}, ytick={.203,1.679},
+            xticklabels={$a$,$x$}, yticklabels={$f(a)$,$f(x)$},
+            axis on top,
+          ]
+          \addplot [draw=none,fill=fillp,domain=(1:5)] {sin(deg((x - 4)/2)) + 1.2} \closedcycle;
+          \addplot [very thick,penColor, smooth,domain=(0:6)] {sin(deg((x - 4)/2)) + 1.2};
+
+          \addplot [textColor,dashed] plot coordinates {(0,1.679) (5,1.679)};
+          \addplot [textColor,dashed] plot coordinates {(0,.203) (1,.203)};
+          %\addplot [textColor,dashed] plot coordinates {(5,0) (5,1.679)};
+          \addplot [textColor] plot coordinates {(1,0) (1,.203)};
+
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(1,.203)};  %% closed hole         
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(5,1.679)};  %% closed hole       
+          \node at (axis cs:3.4,.3) [textColor] {$F(x) = \int_a^x f(t) \d t$};
+          \node at (axis cs:3.4,1.1) [penColor] {$f(t)$};
+        \end{axis}
+\end{tikzpicture}
+
+Eine Integralfunktion $F(x)$ berechnet die markierte Fläche in der Region  $[a,x]$ zwischen $f(t)$ und der $t$-Achse. Also spielt $t$ die Rolle eines ``Platzhalters'' und repräsentiert die Zahlen über welche $f(t)$ evaluiert wird. $x$ andererseits ist die spezifische Zahl welche wir benutzen um die Region einzugrenzen, die die Fläche zwischen $f(t)$ und der $t$-Achse bestimmt. 
+
+
+\begin{example} 
+Betrachten Sie die folgende Integralfunktion für $f(x) = x^3$:
+\[
+F(x) = \int_{-1}^x t^3 \d t.
+\]
+Betrachten Sie das Intervall $[-1,1]$, wo steigt $F(x)$ an?? Wo fällt $F(x)$ ab? Wo besitzt $F(x)$ ein lokales Extrema?
+\end{example}
+
+\begin{marginfigure}
+\begin{tikzpicture}
+  \begin{axis}[
+      xmin=-1.2, xmax=1,ymin=-1,ymax=1,domain=-1:1,
+      axis lines =center, xlabel=$t$, ylabel=$y$,
+      every axis y label/.style={at=(current axis.above origin),anchor=south},
+      every axis x label/.style={at=(current axis.right of origin),anchor=west},
+      xtick={-1,.8}, 
+      xticklabels={$-1$,$x$}, 
+      axis on top,
+    ] 
+    \addplot [draw=none, fill=fillp,domain=0:.8] {x^3} \closedcycle;
+    \addplot [draw=none, fill=filln,domain=-1:0] {x^3} \closedcycle;
+    \addplot [penColor,very thick,domain=-1.2:1,] {x^3};
+    
+    \addplot [textColor] plot coordinates {(-1,0) (-1,-1)};
+
+    \node at (axis cs:.67,.15) [textColor] {\scalebox{2}{$\boldsymbol+$}};
+    \node at (axis cs:-.85,-.3) [textColor] {\scalebox{2}{$\boldsymbol-$}};
+  \end{axis}
+\end{tikzpicture}
+\caption{Das Integral $\int_{-1}^x t^3 \d t$ berechnet die schattierte Fläche.}
+\label{figure:accumulationeg}
+\end{marginfigure}
+
+\begin{solution}
+Betrachten Sie den Plot von $f(t)$ zusammen mit der bezeichneten Fläche die durch die Integralfuntion bestimmt wird (Abbildung~\ref{figure:accumulationeg}). Die Integralfunktion beginnt bei Null und fällt ab währen die Fläche negativ zunimmt (nach links). Wenn jedoch  $x>0$, beginnt die Fläche positiv zu wachsen und $F(x)$ steigt daher an. Also steigt
+$F(x)$ im Intervall $(0,1)$ an, fällt über $(-1,0)$ ab und besitzt daher ein lokales Minimum bei $(0,0)$.
+\end{solution}
+
+Die Arbeit mit der Integralfunktion führt uns zu einer Frage: Was ist
+\[
+\int_a^x f(x) \d x
+\]
+wenn $x< a$? Allgemein gilt:
+\[
+\int_a^b f(x) \d x = -\int_b^a f(x) \d x. 
+\]
+Mit dem in Hinterkopf betrachten wir nun das nächste Beispiel:
+
+
+\begin{example} 
+Betrachten Sie die folgende Integralfunktion für $f(x) = x^3$.
+\[
+F(x) = \int_{-1}^x t^3 \d t.
+\]
+Wo steigt $F(x)$ an? Wo fällt $F(x)$ ab? Wo besitzt
+$F(x)$ einen Extremwert?
+\end{example}
+
+\begin{marginfigure}
+\begin{tikzpicture}
+  \begin{axis}[
+      xmin=-3, xmax=1,ymin=-10,ymax=1,domain=-3:1,
+      axis lines =center, xlabel=$t$, ylabel=$y$,
+      every axis y label/.style={at=(current axis.above origin),anchor=south},
+      every axis x label/.style={at=(current axis.right of origin),anchor=west},
+      xtick={-2,-1}, 
+      xticklabels={$x$,$-1$}, 
+      axis on top,
+    ] 
+    \addplot [draw=none, fill=fillp,domain=-2:-1] {x^3} \closedcycle;
+    \addplot [penColor,very thick] {x^3};
+
+    \addplot [textColor] plot coordinates {(-1,0) (-1,-1)};
+    
+    \node at (axis cs:-1.5,-1.5) [textColor] {\scalebox{2}{$\boldsymbol+$}};
+  \end{axis}
+\end{tikzpicture}
+\caption{Das Integral $\int_{-1}^x t^3 \d t$ berechnet die schattierte Fläche. Beachten Sie, dass da $x<-1$, die Fläche positiv ist.}
+\label{figure:accumulationegreal}
+\end{marginfigure}
+
+\begin{solution}
+Vom vorhergehenden Beispiel wissen wir, dass $F(x)$ über
+$(0,1)$ ansteigt. Da $f(t)$ ab $t=1$ positiv bleibt, steigt
+  $F(x)$ über $(0,\infty)$ an.Andererseits wissen wir vom vorherigen Beispiel, dass $F(x)$ über $(-1,0)$ abfällt. Für Werte
+  links von $t=-1$, fällt $F(x)$ immer noch ab während immer weniger negative Fläche dazukommt. Also ist $F(x)$ steigend über $(0,\infty)$, fallend über $(-\infty,0)$ und besitzt daher ein globales Minimum bei $(0,0)$.
+\end{solution}
+
+Der Kernpunkt von diesen Beispielenist, dass eine Integralfunktion
+\[
+\int_a^x f(t) \d t
+\]
+ansteigt wenn $f(t)$ positiv ist und abfällt wenn $f(t)$ negativ ist. Kurz gesagt scheint es, dass  $f(x)$ sich ähnlich verhält wie $F'(x)$.
+
+
+
+
+\begin{exercises}
+
+\noindent Für die folgenden Aufgaben betrachten Sie den Plot von $f(x)$, Abbildung~\ref{figure:intExerPlot1}.
+\begin{marginfigure}
+\begin{tikzpicture}
+  \begin{axis}[
+      xmin=-2.5, xmax=2.5,ymin=-1,ymax=1,domain=-2.2:2.2,
+      axis lines =center, xlabel=$x$, ylabel=$y$,
+      every axis y label/.style={at=(current axis.above origin),anchor=south},
+      every axis x label/.style={at=(current axis.right of origin),anchor=west},
+      axis on top,
+    ] 
+    \addplot [penColor,very thick,smooth] {sin(deg(x))*sin(deg(x^2/1.3))};
+  \end{axis}
+\end{tikzpicture}
+\caption{A plot of $f(x)$.}
+\label{figure:intExerPlot1}
+\end{marginfigure}
+\twocol
+\begin{exercise}
+Ist $\int_1^2 f(x) \d x$ \\
+positiv, negativ, oder Null?
+\begin{answer}
+positiv
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+Ist $\int_{-1}^0 f(x) \d x$ \\
+positiv, negativ, oder Null?
+\begin{answer}
+negativ
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+Ist $\int_{-1}^1 f(x) \d x$ \\
+positiv, negativ, oder Null?
+\begin{answer}
+Null
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+Ist $\int_{-1}^2 f(x) \d x$ \\
+positiv, negativ, oder Null?
+\begin{answer}
+positiv
+\end{answer}
+\end{exercise}
+
+\endtwocol
+
+\noindent Für die folgenden Aufgaben betrachten Sie den Plot von $g(x)$, Abbildung~\ref{plot:intExerPlot2} um die Integrale zu berechnen.
+\begin{marginfigure}[0in]
+\begin{tikzpicture}
+  \begin{axis}[
+      domain=-2:3,
+      axis lines =middle, xlabel=$x$, ylabel=$y$,
+      every axis y label/.style={at=(current axis.above origin),anchor=south},
+      every axis x label/.style={at=(current axis.right of origin),anchor=west},
+      clip=false,
+      grid=both,
+      grid style={dashed, gridColor},
+    ]
+    \addplot [penColor, very thick] plot coordinates {
+      (-2,1) (-1,1) (0,-2) (2,2) (3,0)};
+  \end{axis}
+\end{tikzpicture}
+\caption{Ein Plot von $g(x)$.}
+\label{plot:intExerPlot2}
+\end{marginfigure}
+
+\twocol
+
+\begin{exercise}
+$\int_{-2}^{-1} g(x) \d x$
+\begin{answer}
+$1$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int_1^3 g(x) \d x$
+\begin{answer}
+$2$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int_0^3 g(x) \d x$
+\begin{answer}
+$1$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+$\int_{-1}^3 g(x) \d x$
+\begin{answer}
+$1/2$
+\end{answer}
+\end{exercise}
+
+\endtwocol
+
+\begin{exercise}
+Nehmen Sie an, sie wissen dass $\int_{-1}^1 x^2 \d x = \frac{2}{3}$ und dass
+$\int_{-1}^1 e^x \d x= e-\frac{1}{e}$. Benutzen Sie die Eigenschaften des bestimmten Integrals um
+\[
+\int_{-1}^1 \left(4 e^x - 3 x^2\right) \d x.
+\]
+zu berechnen.
+\begin{answer}
+$4e - \frac{4}{e} - 2$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+Nehmen Sie an, sie wissen dass $\int_{1}^2 x^2 \d x = \frac{7}{3}$, $\int_1^2
+\ln(x)\d x = \ln(4) - 1$, und dass $\int_1^2 \sin(\pi x) \d x =
+\frac{-2}{\pi}$. Benutzen Sie die Eigenschaften des bestimmten Integrals um
+\[
+\int_1^2 \left(6 x^2  - 2 \ln(x) +\pi \sin(\pi x) \right) \d x.
+\]
+zu berechnen.
+\begin{answer}
+$14 -2 \ln(4)$
+\end{answer}
+\end{exercise}
+
+
+\noindent Betrachten Sie für die folgenden Aufgaben die Integralfunktion $F(x) = \int_{-2}^x \frac{\sin(t)}{t} \d t$ über dem Intervall
+$[-2\pi,2\pi]$.
+
+\begin{exercise} Über welchen Intervallen steigt $F(x)$ an?
+\begin{answer}
+$(-\pi,\pi)$
+\end{answer}
+\end{exercise}
+
+\begin{exercise} Über welchen Intervallen fällt $F(x)$ ab?
+\begin{answer}
+$(-2\pi,-\pi)\cup(\pi,2\pi)$
+\end{answer}
+\end{exercise}
+
+\end{exercises}
+
+
+
+
+\section{Riemann Summen}
+
+Im ersten Abschnitt haben wir gelernt, dass Integrale Flächen berechnen. Wir haben jedoch noch gar nicht betrachtet wie diese Flächen berechnet werden. Nehmen wir an, dass wir die Funktion $f(x)$ zwischen $a$ und $b$ integrieren möchten, vgl. Abbildung~\ref{figure:areacompute1}. Wir starten in dem wir das Intervall $[a,b]$ in kleine Stücke aufteilen, dazu machen wir eine Liste:
+
+\begin{marginfigure}
+\begin{tikzpicture}
+	\begin{axis}[
+            domain=.5:5.5, ymax=2.2,xmax=5.5,xmin=.5,ymin=0,
+            axis lines =left, xlabel=$x$, ylabel=$y$,
+            every axis y label/.style={at=(current axis.above origin),anchor=south},
+            every axis x label/.style={at=(current axis.right of origin),anchor=west},
+            xtick={1,5}, ytickmin=4, ytickmax=1,
+            xticklabels={$a$,$b$}, 
+            axis on top,
+          ]
+          \addplot [draw=none,fill=fillp,domain=(1:5)] {sin(deg((x - 4)/2)) + 1.2} \closedcycle;
+          \addplot [very thick,penColor, smooth,domain=(0:6)] {sin(deg((x - 4)/2)) + 1.2};
+          %\addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(1,.203)};  %% closed hole         
+          %\addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(5,1.679)};  %% closed hole       
+        \end{axis}
+\end{tikzpicture}
+\caption{Ein Plot von $f(x)$ zusammen mit der Fläche die durch das bestimmte Integral berechnet wird.}
+\label{figure:areacompute1}
+\end{marginfigure}
+
+\[
+a = x_0 < x_1 <x_2 < \cdots x_{n-1}< x_n = b
+\]
+und betrachten die Unterintervalle: 
+\[
+[x_0,x_1]\cup [x_1, x_2]\cup \dots \cup [x_{n-1},x_n] = [a,b].
+\]
+
+\begin{marginfigure}
+\begin{tikzpicture}
+	\begin{axis}[
+            domain=.5:5.5, ymax=2.2,xmax=5.5, xmin=.5,ymin=0,
+            axis lines =left, xlabel=$x$, ylabel=$y$,
+            every axis y label/.style={at=(current axis.above origin),anchor=south},
+            every axis x label/.style={at=(current axis.right of origin),anchor=west},
+            xtick={1,2.1,2.7,4.2,5}, ytickmin=4, ytickmax=1,
+            xticklabels={$a=x_0$, $x_1$, $x_2$, $x_3$, $x_4=b$}, 
+            axis on top,
+          ]
+
+%          \addplot [draw=penColor,fill=fillp] plot coordinates {(1,.24) (2.1,.24)} \closedcycle;
+%          \addplot [draw=penColor,fill=fillp] plot coordinates {(2.1,.45) (2.7,.45)} \closedcycle;
+%          \addplot [draw=penColor,fill=fillp] plot coordinates {(2.7,.72) (4.2,.72)} \closedcycle;
+%          \addplot [draw=penColor,fill=fillp] plot coordinates {(4.2,1.54) (5,1.54)} \closedcycle;
+
+          \addplot [very thick,penColor, smooth,domain=(0:6)] {sin(deg((x - 4)/2)) + 1.2};
+          
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(1.4,.24)};  %% closed hole         
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(2.3,.45)};  %% closed hole       
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(3,.72)};  %% closed hole  
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(4.7,1.54)};  %% closed hole       
+          
+          \addplot [dashed,textColor] plot coordinates {(1.4,0) (1.4,.24)};
+          \addplot [dashed,textColor] plot coordinates {(2.3,0) (2.3,.45)};
+          \addplot [dashed,textColor] plot coordinates {(3,0) (3,.72)};
+          \addplot [dashed,textColor] plot coordinates {(4.7,0) (4.7,1.54)};
+
+          \node at (axis cs:1.4,.24) [textColor,above] {$f(x_0^*)$};
+          \node at (axis cs:2.3,.5) [textColor,above] {$f(x_1^*)$};
+          \node at (axis cs:3,.8) [textColor,above] {$f(x_2^*)$};
+          \node at (axis cs:4.7,1.6) [textColor,above] {$f(x_3^*)$};
+        \end{axis}
+\end{tikzpicture}
+\caption{Ein Plot von $f(x)$ zusammen mit der Aufteilung in kleine Teilintervalle  
+\[
+[x_0,x_1]\cup [x_1, x_2]\cup [x_2,x_3]\cup [x_3,x_4] = [a,b]
+\]
+und die $y$-Werte $f(x_0^*)$, $f(x_1^*)$, $f(x_2^*)$, $f(x_3^*)$.}
+\label{figure:areacompute2}
+\end{marginfigure}
+Für jedes Teilintervall wählen wir einen Punkt $x_i^*\in [x_i,x_{i+1}]$ und werten die Funktion $f(x)$ an jedem dieser Punkte aus, vgl. Abbildung~\ref{figure:areacompute2}. Wir können nun die Fläche der Rechtecke, die durch die Breite der Teilintervalle $[x_i,x_{i+1}]$ und durch die Höhe $f(x_i^*)$ definiert werden berechnen. Addieren wir die Flächen dieser Rechtecke zusammen, erhalten wir:
+\[
+\sum_{i=0}^{n-1} f(x_i^*) \cdot (x_{i+1}-x_i) \approx \int_a^b f(x) \d x.
+\]
+
+\begin{tikzpicture}
+	\begin{axis}[
+            domain=.5:5.5, ymax=2.2,xmax=5.5, xmin=.5,ymin=0,
+            axis lines =left, xlabel=$x$, ylabel=$y$,
+            every axis y label/.style={at=(current axis.above origin),anchor=south},
+            every axis x label/.style={at=(current axis.right of origin),anchor=west},
+            xtick={1,2.1,2.7,4.2,5}, ytickmin=4, ytickmax=1,
+            xticklabels={$a=x_0$, $x_1$, $x_2$, $x_3$, $x_4=b$}, 
+            axis on top,
+          ]
+
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1,.24) (2.1,.24)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(2.1,.45) (2.7,.45)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(2.7,.72) (4.2,.72)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(4.2,1.54) (5,1.54)} \closedcycle;
+
+          \addplot [very thick,penColor, smooth,domain=(0:6)] {sin(deg((x - 4)/2)) + 1.2};
+          
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(1.4,.24)};  %% closed hole         
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(2.3,.45)};  %% closed hole       
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(3,.72)};  %% closed hole  
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(4.7,1.54)};  %% closed hole       
+          
+          \addplot [dashed,textColor] plot coordinates {(1.4,0) (1.4,.24)};
+          \addplot [dashed,textColor] plot coordinates {(2.3,0) (2.3,.45)};
+          \addplot [dashed,textColor] plot coordinates {(3,0) (3,.72)};
+          \addplot [dashed,textColor] plot coordinates {(4.7,0) (4.7,1.54)};
+
+          \node at (axis cs:1.4,.24) [textColor,above] {$f(x_0^*)$};
+          \node at (axis cs:2.3,.5) [textColor,above] {$f(x_1^*)$};
+          \node at (axis cs:3,.8) [textColor,above] {$f(x_2^*)$};
+          \node at (axis cs:4.7,1.6) [textColor,above] {$f(x_3^*)$};
+        \end{axis}
+\end{tikzpicture}
+
+In dem wir die Teilintervalle immer kleiner und kleiner machen, erhalten wir eine immer genauere Näherung an die tatsächliche Fläche (vgl. Abbildung~\ref{figure:partitionsfiner}), im Grenzwert für unendlich kleine Teilintervalle (Breite gegen Null) erhalten wir die exakte Fläche. Summen dieser Form werden \textit{Riemann Summen} genannt.
+
+%\break
+
+\begin{marginfigure}
+\begin{tikzpicture}
+	\begin{axis}[
+            domain=.5:5.5, ymax=2.2,xmax=5.5, xmin=.5,ymin=0,
+            axis lines =left, xlabel=$x$, ylabel=$y$,
+            every axis y label/.style={at=(current axis.above origin),anchor=south},
+            every axis x label/.style={at=(current axis.right of origin),anchor=west},
+            xtick={1,5}, ytickmin=4, ytickmax=1,
+            xticklabels={$a$, $b$}, 
+            axis on top,
+          ]
+
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1,.21) (1.13,.21)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1.13,.21) (1.19,.21)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1.19,.225) (1.5,.225)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1.5,.29) (1.74,.29)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1.74,.33) (1.93,.33)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1.93,.36) (2.16,.36)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(2.16,.42) (2.24,.42)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(2.24,.45) (2.35,.45)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(2.35,.56) (2.75,.56)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(2.75,.62) (2.8,.62)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(2.8,.65) (2.85,.65)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(2.85,.77) (3.2,.77)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(3.2,.86) (3.47,.86)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(3.47,.95) (3.65,.95)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(3.65,1.05) (3.72,1.05)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(3.72,1.1) (4.04,1.1)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(4.04,1.24) (4.15,1.24)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(4.15,1.3) (4.23,1.3)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(4.23,1.35) (4.58,1.35)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(4.58,1.5) (4.74,1.5)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(4.74,1.57) (4.8,1.57)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(4.8,1.63) (5,1.63)} \closedcycle;
+          
+          \addplot [very thick,penColor, smooth,domain=(0:6)] {sin(deg((x - 4)/2)) + 1.2};
+        \end{axis}
+\end{tikzpicture}
+\caption{Je kleiner die Teilintervalle werden, umso genauer ist die Näherung
+\[
+\sum_{i=0}^{n-1} f(x_i^*) \cdot (x_{i+1}-x_i) \approx \int_a^b f(x) \d x.
+\]}
+\label{figure:partitionsfiner}
+\end{marginfigure}
+
+
+\begin{definition}\index{Riemann Summe}
+Gegeben sein ein Intervall $[a,b]$ und ein Teilintervall (Partition) durch
+\[
+a = x_0 < x_1 <x_2 < \cdots x_{n-1}< x_n = b,
+\]
+dann ist eine \textbf{Riemann Summe} für $f(x)$ eine Summe in der Form
+\[
+\sum_{i=0}^{n-1} f(x_i^*) \cdot (x_{i+1}-x_i)
+\]
+wobei $x_i^*\in [x_i,x_{i+1}]$.
+\end{definition}
+
+Es existieren (mindestens) fünf spezielle Riemann Summen: \textit{linke},
+\textit{rechte}, \textit{mittlere}, \textit{obere}, und \textit{untere} Summe.
+
+\begin{definition}
+Betrachten Sie die folgende Riemann Summe:
+\[
+\sum_{i=0}^{n-1} f(x_i^*) \cdot (x_{i+1}-x_i)
+\]
+\begin{itemize}
+\item Wir nennen sie eine \textbf{linke} Riemann Summe wenn jedes $x_i^* =
+  x_i$.
+\item Wir nennen sie eine \textbf{rechte} Riemann Summe wenn jedes $x_i^* =
+  x_{i+1}$.
+\item Wir nennen sie eine \textbf{mittlere} Riemann Summe wenn jedes $x_i^*
+  = \frac{x_i+x_{i+1}}{2}$.
+\item Wir nennen sie eine \textbf{obere} Riemann Summe wenn jedes $x_i^*$ ein Punkt ist,
+  der den Maximalwert von $f(x)$ im Intervall $[x_i,x_{i+1}]$ angibt.
+\item Wir nennen sie eine \textbf{untere} Riemann Summe wenn jedes $x_i^*$ ein Punkt ist,
+  der den Minimalwert von $f(x)$ im Intervall $[x_i,x_{i+1}]$ angibt.
+\end{itemize}
+\end{definition}
+Riemann Summen geben einen Mechanismus, durch den die Integrale berechnet werden können. Wir betrachten ein Beispiel:
+
+\begin{example}
+Berechnen Sie mit vier gleichen Teilintervallen in $[1,2]$ die linke Riemann Summe die das folgende Integral approximiert:
+\[
+\int_1^2 \left(x^2-2x+2\right)\d x
+\]
+
+\end{example}
+
+\begin{marginfigure}
+
+\begin{tikzpicture}
+	\begin{axis}[
+            domain=.75:2.25, ymax=3,xmax=2.25, xmin=.75,ymin=0,
+            axis lines =left, xlabel=$x$, ylabel=$y$,
+            every axis y label/.style={at=(current axis.above origin),anchor=south},
+            every axis x label/.style={at=(current axis.right of origin),anchor=west},
+            xtick={1,1.25,1.5,1.75,2}, ytickmin=4, ytickmax=1,
+            axis on top,
+          ]
+
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1,1) (1.25,1)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1.25,1.06) (1.5,1.06)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1.5,1.25) (1.75,1.25)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(1.75,1.56) (2,1.56)} \closedcycle;
+
+          \addplot [very thick,penColor, smooth,domain=(0:6)] {x^2-2*x+2};
+          
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(1,1)};  %% closed hole         
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(1.25,1.06)};  %% closed hole       
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(1.5,1.25)};  %% closed hole  
+          \addplot [color=penColor,fill=penColor,only marks,mark=*] coordinates{(1.75,1.56)};  %% closed hole       
+          
+          \node at (axis cs:1,1) [textColor,above] {$f(x_0^*)$};
+          \node at (axis cs:1.25,1.06) [textColor,above] {$f(x_1^*)$};
+          \node at (axis cs:1.5,1.3) [textColor,above] {$f(x_2^*)$};
+          \node at (axis cs:1.75,1.6) [textColor,above] {$f(x_3^*)$};
+        \end{axis}
+\end{tikzpicture}
+\caption{Hier sehen wir ds Intervall $[1,2]$ unterteilt in vier gleiche Teilintervalle.}
+\label{figure:drawRiemann1}
+\end{marginfigure}
+
+\begin{solution}
+Wir starten in dem wir für $f(x) = x^2-2x+2$ wählen. Betrachten Sie Abbildung~\ref{figure:drawRiemann1}.  Unsere Aufteilung des Intervalls $[1,2]$ ist
+\[
+[1,1.25]\cup [1.25,1.5]\cup [1.5,1.75]\cup [1.75,2]. 
+\]
+Damit wir die Riemann Summe gegeben durch
+\[
+f(1)(1.25-1) + f(1.25)(1.5-1.25) + f(1.5)(1.75-1.5) + f(1.75)(2-1.75).
+\]
+Dies ist gleich
+\[
+\frac{1}{4} + \frac{17}{64} + \frac{5}{16} + \frac{25}{64} = \frac{39}{32} \approx 1.22.
+\]
+\end{solution}
+
+Um garantieren zu können, dass die Riemann Summe dem Integral entspricht, müssen wir die Anzahl der Teilintervalle gegen Unendlich streben lassen, in dem die Breite der Teilintervalle gegen Null geht. Wir betrachten dazu ein Beispiel:
+
+\begin{example}
+Berechnen Sie
+\[
+\int_3^7 \left(2x-1\right)\d x
+\]
+mit einer linken Riemann Summe.
+\end{example}
+
+\begin{solution}
+Wir starten in dem wir für $f(x) = 2x-1$ wählen und betrachten die Abbildung~\ref{figure:drawRiemann2}.  Das Intervall $[3,7]$ ist geteilt in $n$ Teilintervalle, jedes mit einer Breite von $(7-3)/n$. Unsere linke Riemann Summe ist nun:
+\[
+\sum_{i=0}^{n-1} f(3+(7-3)i/n) \left(\frac{7-3}{n}\right).
+\]
+Durch Vereinfachen finden wir:
+\begin{align*}
+\sum_{i=0}^{n-1} f(3+4i/n) \frac{4}{n} &= \sum_{i=0}^{n-1} \left((2(3+4i/n) -1 )\frac{4}{n}\right)\\
+&= \sum_{i=0}^{n-1} \left((5+8i/n )\frac{4}{n}\right)\\
+&= \sum_{i=0}^{n-1} \left(\frac{20}{n} + \frac{32i}{n^2}\right)\\
+&= \sum_{i=0}^{n-1} \frac{20}{n} + \sum_{i=0}^{n-1}\frac{32i}{n^2}\\
+&= \frac{20}{n}\sum_{i=0}^{n-1} 1 +\frac{32}{n^2} \sum_{i=0}^{n-1} i
+\end{align*}
+An diesem Punkt benötigen wir zwei Formeln
+\[
+\sum_{i=0}^{n-1}1 = n \qquad\text{und}\qquad \sum_{i=0}^{n-1} i = \frac{n^2-n}{2}.
+\]
+In dem wir die zwei Formeln für die Summen in unserer Gleichung einsetzen, erhalten wir:
+\begin{align*}
+\frac{20}{n}\sum_{i=0}^{n-1} 1 +\frac{32}{n^2} \sum_{i=0}^{n-1} i &=\frac{20}{n}(n) +\frac{32}{n^2}\frac{n^2-n}{2}\\
+&=20+16 -\frac{16}{n}\\
+&=36 - \frac{16}{n}.
+\end{align*}
+Nun nehmen wir den Grenzwert:
+\[
+\int_3^7 \left(2x-1\right) \d x = \lim_{n\to \infty}\sum_{i=0}^{n-1} f(3+(7-3)i/n) \left(\frac{7-3}{n}\right)
+\]
+und damit
+\[
+\int_3^7 \left(2x-1 \right)\d x = \lim_{n\to \infty} \left(36 - \frac{16}{n}\right) = 36.
+\]
+\end{solution}
+
+\begin{marginfigure}
+\begin{tikzpicture}
+	\begin{axis}[
+            domain=2:8, ymax=14,xmax=8,ymin=0,
+            axis lines =left, xlabel=$x$, ylabel=$y$,
+            every axis y label/.style={at=(current axis.above origin),anchor=south},
+            every axis x label/.style={at=(current axis.right of origin),anchor=west},
+            xtick={3,7}, ytickmin=2,ytickmax=1,
+            axis on top,
+          ]
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(3,5) (3.3,5)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(3.3,5.6) (3.6,5.6)} \closedcycle;
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(3.6,6.2) (3.9,6.2)} \closedcycle;
+          %% It might be cool to have rectangles fade out... but I'll put dots in for now.
+          \addplot [draw=penColor,fill=fillp] plot coordinates {(6.7,12.4) (7,12.4)} \closedcycle;
+          \node at (axis cs:5.4,2) [penColor] {\scalebox{3}{$\cdots$}};
+          \addplot [very thick,penColor, smooth,domain=(2:8)] {2*x-1};
+        \end{axis}
+\end{tikzpicture}
+\caption{Wir werden eine Summe verwenden um  
+\[
+\int_3^7 2x -1 \d x.
+\]
+zu berechnen. Beachten Sie, dass die Breite der Rechtecke bei $n$ Rechtecken $4/n$ beträgt.}
+\label{figure:drawRiemann2}
+\end{marginfigure}
+
+Das Berechnen von Riemann Summen kann schwierig sein. Insbesondere erfordert das einfache Integrieren von Polynomen durch Riemann Summen das berechnen von Summen der Form 
+\[
+\sum_{i=0}^{n-1} i^a
+\]
+für ganzzahlige Werte von $a$. Gibt es einen einfacheren Weg umIntegrale zu berechnen? Wir werden dies im nächsten Kapitel herausfinden!
+
+
+
+\begin{exercises}
+
+\begin{margintable}[1in]
+\[
+\begin{tchart}{ll}
+x & f(x) \\
+1.0 & 2.3 \\
+1.2 & 3.9 \\ 
+1.4 & 7.0 \\
+1.6 & 12.9 \\
+1.8 & 24.9 \\ 
+2 & 49.6 
+\end{tchart}
+\]
+\caption{Werte für $f(x)$.}
+\label{table:intEx1}
+\end{margintable}
+
+\begin{exercise}
+Benutzen Sie die Tabelle~\ref{table:intEx1} um mit der linken Riemann Summe 
+ $\int_1^2 f(x) \d x$ abzuschätzen.
+\begin{answer}
+$10.2$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+Benutzen Sie die Tabelle~\ref{table:intEx1} um mit der rechten Riemann Summe 
+ $\int_1^2 f(x) \d x$ abzuschätzen.
+\begin{answer}
+$19.66$
+\end{answer}
+\end{exercise}
+
+\begin{margintable}[1in]
+\[
+\begin{tchart}{ll}
+x & g(x) \\
+-1.0 & 0.8\\
+-0.8 & 0.5 \\ 
+-0.6 & 0.1 \\
+-0.4 & -0.1 \\
+-0.2 & -0.1 \\ 
+0.0 &  0.0 
+\end{tchart}
+\]
+\caption{Werte für $g(x)$.}
+\label{table:intEx2}
+\end{margintable}
+
+
+\begin{exercise}
+Benutzen Sie die Tabelle~\ref{table:intEx2}  um mit der linken Riemann Summe 
+$\int_{-1}^0 g(x) \d x$ abzuschätzen.
+\begin{answer}
+$0.24$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+Benutzen Sie die Tabelle~\ref{table:intEx2}  um mit der rechten Riemann Summe 
+$\int_{-1}^0 g(x) \d x$ abzuschätzen.
+\begin{answer}
+$0.08$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+Schreiben Sie einen Ausdruck in der Summen Notation für die linke Riemann Summe mit $n$ gleich verteilten Teilintervallen, der das Integral $\int_1^3 \left(4-x^2\right) \d x$ approximiert.
+\begin{answer}
+$\sum_{i=0}^{n-1} \left( 4 - (1+2i/n)^2\right)\cdot \frac{2}{n}$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+Schreiben Sie einen Ausdruck in der Summen Notation für die rechte Riemann Summe mit $n$ gleich verteilten Teilintervallen, der das Integral $\int_{-\pi}^\pi
+\frac{\sin(x)}{x} \d x$ approximiert.
+\begin{answer}
+$\sum_{i=1}^{n} \left(\frac{\sin\left(-\pi + \frac{2\pi i}{n}\right)}{-\pi + \frac{2\pi i}{n}}\right)\cdot \frac{2\pi}{n}$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+Schreiben Sie einen Ausdruck in der Summen Notation für die mittlere Riemann Summe mit $n$ gleich verteilten Teilintervallen, der das Integral $\int_{0}^1 e^{(x^2)} \d x$ approximiert.
+\begin{answer}
+$\sum_{i=0}^{n-1} e^{((1+2i)/2n)^2} \cdot \frac{1}{n}$
+\end{answer}
+\end{exercise}
+
+\begin{exercise} 
+Benutzen Sie eine Riemann Summe um  $\int_1^2 x \d x$ zu berechnen.
+\begin{answer}
+$3/2$
+\end{answer}
+\end{exercise}
+
+\begin{exercise}
+Benutzen Sie eine Riemann Summe um $\int_{-1}^3 \left(4-x\right) \d x$ zu berechnen.
+\begin{answer}
+$12$
+\end{answer}
+\end{exercise}
+
+
+\begin{exercise}
+Benutzen Sie eine Riemann Summe um $\int_{2}^4 3x^2 \d x$ zu berechnen. Hinweis:
+$\sum_{i=0}^{n-1} i^2 = \frac{(n-1)n(2n-1)}{6}$.
+\begin{answer}
+$56$
+\end{answer}
+\end{exercise}
+
+
+
+\end{exercises}
+
